@@ -1,0 +1,105 @@
+﻿  Actor.cpp
+  FileReader_Wav.cpp
+  GLFWEW.cpp
+d:\program files\infectionvillage\sourceprogram\src\glfwew.cpp(210): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  Main.cpp
+  MainGameScene.cpp
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(39): warning C4305: '*=': 'double' から 'T' へ切り詰めます。
+          with
+          [
+              T=float
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(261): warning C4552: '/': 式の結果が使用されていません
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(281): warning C4244: '引数': 'float' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(282): warning C4244: '引数': 'float' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(285): warning C4244: '引数': 'float' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(286): warning C4244: '引数': 'float' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(289): warning C4244: '引数': 'float' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(290): warning C4244: '引数': 'float' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(291): warning C4244: '引数': 'float' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(294): warning C4244: '引数': 'float' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(295): warning C4244: '引数': 'float' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              _Ty=int
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(319): warning C4244: '引数': 'int' から 'T' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=float
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(334): warning C4244: '引数': 'int' から 'T' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=float
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(335): warning C4244: '=': 'int' から 'T' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=float
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(491): warning C4244: '-=': 'double' から 'float' への変換です。データが失われる可能性があります。
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(496): warning C4244: '+=': 'double' から 'float' への変換です。データが失われる可能性があります。
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(952): warning C4244: '引数': 'T' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              _Ty=int
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(953): warning C4244: '引数': 'T' から '_Ty' への変換です。データが失われる可能性があります。
+          with
+          [
+              T=float
+          ]
+          and
+          [
+              _Ty=int
+          ]
+d:\program files\infectionvillage\sourceprogram\src\maingamescene.cpp(1368): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  MeshList.cpp
+d:\program files\infectionvillage\sourceprogram\src\meshlist.cpp(157): warning C4244: '=': '__int64' から 'GLsizei' への変換です。データが失われる可能性があります。
+  Shader.cpp
+  Sound.cpp
+  SoundActor.cpp
+  SoundALobjects.cpp
+  SoundBuffer.cpp
+d:\program files\infectionvillage\sourceprogram\src\soundbuffer.cpp(93): warning C4010: 単一行コメント (//) に、行連結文字があります。
+  Texture.cpp
+  TitleScene.cpp
+  コードを生成中...
+  OpenGL3D2018.vcxproj -> D:\Program Files\INFECTIONVILLAGE\SourceProgram\x64\Debug\INFECTIONVILLAGE.exe

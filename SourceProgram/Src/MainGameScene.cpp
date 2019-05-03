@@ -982,8 +982,8 @@ void MainGameScene::Update()
 					ZombieActor* zombie = (ZombieActor*)FindAvailableActor(enemyList);
 					if (zombie) {
 						//===================エネミーのModelさしかえ　４番から作ったリストNumberに===========
-						zombie->Initialize(7, texZombie.Get(), hpRange(random), pos, glm::vec3(0), glm::vec3(0.25, 0.25, 0.25));
-						zombie->colLocal = { glm::vec3(-0.7f, 0, -0.8f), glm::vec3(1.7f, 1.8f, 1.6f) };
+						zombie->Initialize(4, texZombie.Get(), hpRange(random), pos, glm::vec3(0), glm::vec3(1.2));
+						zombie->colLocal = { glm::vec3(-0.85f, 0, -0.8f), glm::vec3(1.7f, 1.8f, 1.6f) };
 						zombie->target = &player;
 						zombie->baseSpeed = (enemySpeed * speedRange(random)) * 0.1f;
 					}
