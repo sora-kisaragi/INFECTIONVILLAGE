@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Object">
+      <UniqueIdentifier>{405309bf-b63b-475d-a282-98806bd43a35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Level">
+      <UniqueIdentifier>{93c8440a-c709-46f8-9ef1-ee7f6e42a6a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Texture">
+      <UniqueIdentifier>{c3db429f-bda8-468c-b7de-d00f475cfae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System">
+      <UniqueIdentifier>{3bba816d-f8b2-461c-848a-b00f0b43e49e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System">
+      <UniqueIdentifier>{f1e58815-11d8-4f36-9a0a-fe7cf7575ca3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Texture">
+      <UniqueIdentifier>{a0853624-77fc-4a17-a3d7-a1c8ced4cb82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Level">
+      <UniqueIdentifier>{d5e7fd66-e14b-4cbb-93e4-cf3fd437295f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Object">
+      <UniqueIdentifier>{6528b240-f9ff-4c90-ae06-60278aeb70bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\obj">
+      <UniqueIdentifier>{26cf2781-1496-4702-bdd9-cea654dbc894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\TAG">
+      <UniqueIdentifier>{4d0a8788-a6a3-4ff5-89c4-4f7d1f2d7459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Shader">
+      <UniqueIdentifier>{deeb9ddb-d35a-4507-80a8-fde71df52248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Icon">
+      <UniqueIdentifier>{8a407546-1252-4a13-b6eb-bae15a42105e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ライブラリ">
+      <UniqueIdentifier>{91aa4ff8-002f-4705-b37d-c726ecea1aed}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\Main.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MainGameScene.cpp">
+      <Filter>ソース ファイル\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Actor.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\GLFWEW.cpp">
+      <Filter>ソース ファイル\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\MeshList.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Shader.cpp">
+      <Filter>ソース ファイル\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Texture.cpp">
+      <Filter>ソース ファイル\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TitleScene.cpp">
+      <Filter>ソース ファイル\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Sound.cpp">
+      <Filter>ライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SoundActor.cpp">
+      <Filter>ライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SoundALobjects.cpp">
+      <Filter>ライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SoundBuffer.cpp">
+      <Filter>ライブラリ</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\FileReader_Wav.cpp">
+      <Filter>ライブラリ</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Res\Bullet.obj">
+      <Filter>リソース ファイル\obj</Filter>
+    </None>
+    <None Include="Res\House.obj">
+      <Filter>リソース ファイル\obj</Filter>
+    </None>
+    <None Include="Res\human.obj">
+      <Filter>リソース ファイル\obj</Filter>
+    </None>
+    <None Include="Res\Plane.obj">
+      <Filter>リソース ファイル\obj</Filter>
+    </None>
+    <None Include="Res\Tree.obj">
+      <Filter>リソース ファイル\obj</Filter>
+    </None>
+    <None Include="Res\FragmentLighting.frag">
+      <Filter>リソース ファイル\Shader</Filter>
+    </None>
+    <None Include="Res\FragmentLighting.vert">
+      <Filter>リソース ファイル\Shader</Filter>
+    </None>
+    <None Include="Res\Simple.frag">
+      <Filter>リソース ファイル\Shader</Filter>
+    </None>
+    <None Include="Res\Simple.vert">
+      <Filter>リソース ファイル\Shader</Filter>
+    </None>
+    <None Include="Res\VertexLighting.vert">
+      <Filter>リソース ファイル\Shader</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Src\Actor.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Geometry.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\MeshList.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\TitleScene.h">
+      <Filter>ヘッダー ファイル\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\MainGameScene.h">
+      <Filter>ヘッダー ファイル\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Texture.h">
+      <Filter>ヘッダー ファイル\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Shader.h">
+      <Filter>ヘッダー ファイル\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\GLFWEW.h">
+      <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Scene.h">
+      <Filter>ヘッダー ファイル\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Sound.h">
+      <Filter>ライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SoundActor.h">
+      <Filter>ライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SoundALobjects.h">
+      <Filter>ライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SoundBuffer.h">
+      <Filter>ライブラリ</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SoundList.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\FileReader_Wav.h">
+      <Filter>ライブラリ</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Res\GameOver.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+    <Image Include="Res\Ground.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+    <Image Include="Res\House.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+    <Image Include="Res\human.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+    <Image Include="Res\Rock.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+    <Image Include="Res\TitleBack1.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+    <Image Include="Res\TitleBack.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+    <Image Include="Res\StageClear.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+    <Image Include="Res\TitleLogo.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+    <Image Include="Res\Zombie.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+    <Image Include="Res\Tree.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+    <Image Include="Res\IV.ico">
+      <Filter>リソース ファイル\Icon</Filter>
+    </Image>
+    <Image Include="Res\FadeSheet.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+    <Image Include="Res\Bullet.tga">
+      <Filter>リソース ファイル\TAG</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="INFECTIONVILLAGE.rc">
+      <Filter>リソース ファイル\Icon</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
