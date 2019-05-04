@@ -954,6 +954,7 @@ void MainGameScene::Update()
 				std::uniform_int_distribution<int> range(-15, 15);
 				std::uniform_int_distribution<int> hpRange(10, 30);
 				std::uniform_int_distribution<int> speedRange(4, 12);
+				std::uniform_int_distribution<int> scaleRange(12, 16);
 
 				//生成されるベースポジションを決定する
 				glm::vec3 posBase(rangeBaseX(random), 0, rangeBaseZ(random));
@@ -980,10 +981,11 @@ void MainGameScene::Update()
 					}
 
 					ZombieActor* zombie = (ZombieActor*)FindAvailableActor(enemyList);
+					glm::vec3 popScale = glm::vec3(scaleRange(random) *0.1, scaleRange(random)*0.1 + 0.2, scaleRange(random)*0.1);
 					if (zombie) {
 						//===================エネミーのModelさしかえ　４番から作ったリストNumberに===========
-						zombie->Initialize(4, texZombie.Get(), hpRange(random), pos, glm::vec3(0), glm::vec3(1.2));
-						zombie->colLocal = { glm::vec3(-0.85f, 0, -0.8f), glm::vec3(1.7f, 1.8f, 1.6f) };
+						zombie->Initialize(4, texZombie.Get(), hpRange(random), pos, glm::vec3(0), glm::vec3(popScale));
+						zombie->colLocal = { glm::vec3(-popScale.x * 0.5, 0, -popScale.z * 0.5), glm::vec3(popScale) };
 						zombie->target = &player;
 						zombie->baseSpeed = (enemySpeed * speedRange(random)) * 0.1f;
 					}
