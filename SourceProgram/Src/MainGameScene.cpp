@@ -63,7 +63,7 @@ void ZombieActor::Update(float deltaTime)
 		return;
 	}
 
-
+	bool hit = false;
 	//移動速度を設定 {ベース x2}
 	const float moveSpeed = baseSpeed * 2.0f;
 	//回転速度を設定 {ベース x2}
@@ -207,6 +207,7 @@ bool MainGameScene::Initialize()
 		texNumber[i].Reset(Texture::LoadImage2D(filename.c_str()));
 	}
 	texFadeSheet.Reset(Texture::LoadImage2D("Res/FadeSheet.tga"));
+	texEffectSheet.Reset(Texture::LoadImage2D("Res/Effect.tga"));
 	texDebugImage.Reset(Texture::LoadImage2D("Res/sorachan.tga"));
 
 	// ライトの設定.
@@ -407,6 +408,8 @@ bool MainGameScene::Initialize()
 	mousePosX = 0;
 	LastMousePosX = 0;
 	StageFinishSE = true;
+	hit = false;
+	time = 0.1f;
 	return true;
 }
 
@@ -482,33 +485,30 @@ void MainGameScene::ProcessInput()
 
 
 		//Mouseの場合
-		if (window.GetMouseButton(1))
+		mousePosX = window.GetMousePosition().x - (1440 / 2);
+		//右に動かした場合
+		if (mousePosX > LastMousePosX)
 		{
-			mousePosX = window.GetMousePosition().x - 1440 / 2;
-			//右に動かした場合
-			if (mousePosX > LastMousePosX)
-			{
-				CameraAngleX -= CameraRotateSpeed * (mousePosX - LastMousePosX) * deltaTime;
-			}
-			//左に動かした場合
-			else if (mousePosX < LastMousePosX)
-			{
-				CameraAngleX += CameraRotateSpeed * (LastMousePosX - mousePosX) * deltaTime;
-			}
-
-			LastMousePosX = mousePosX;
-			//上下の移動
-			posy = static_cast<int>(window.GetMousePosition().y - 380);
-			if (lastposY < posy)
-			{
-				CameraAngleY -= (posy - lastposY) * CameraRotateSpeed * 10 * deltaTime;
-			}
-			else if (lastposY > posy)
-			{
-				CameraAngleY += (lastposY - posy) * CameraRotateSpeed * 10 * deltaTime;
-			}
-			lastposY = posy;
+			CameraAngleX -= CameraRotateSpeed * (mousePosX - LastMousePosX) * deltaTime;
 		}
+		//左に動かした場合
+		else if (mousePosX < LastMousePosX)
+		{
+			CameraAngleX += CameraRotateSpeed * (LastMousePosX - mousePosX) * deltaTime;
+		}
+
+		LastMousePosX = mousePosX;
+		////上下の移動
+		//posy = static_cast<int>(window.GetMousePosition().y - 380);
+		//if (lastposY < posy)
+		//{
+		//	CameraAngleY -= (posy - lastposY) * CameraRotateSpeed * 10 * deltaTime;
+		//}
+		//else if (lastposY > posy)
+		//{
+		//	CameraAngleY += (lastposY - posy) * CameraRotateSpeed * 10 * deltaTime;
+		//}
+		//lastposY = posy;
 
 		/*
 		* 方向転換
@@ -981,7 +981,7 @@ void MainGameScene::Update()
 					}
 
 					ZombieActor* zombie = (ZombieActor*)FindAvailableActor(enemyList);
-					glm::vec3 popScale = glm::vec3(scaleRange(random) *0.1, scaleRange(random)*0.1 + 0.2, scaleRange(random)*0.1);
+					glm::vec3 popScale = glm::vec3(scaleRange(random) * 0.1, scaleRange(random) * 0.1 + 0.2, scaleRange(random) * 0.1);
 					if (zombie) {
 						//===================エネミーのModelさしかえ　４番から作ったリストNumberに===========
 						zombie->Initialize(4, texZombie.Get(), hpRange(random), pos, glm::vec3(0), glm::vec3(popScale));
@@ -1008,6 +1008,7 @@ void MainGameScene::Update()
 		if (zombie->target->Actor_HP <= 0) {
 			continue;
 		}
+
 		//アタックフラグがtrueなら
 		if (zombie->isAttacking) {
 			const glm::vec3 vFront = glm::rotate(glm::mat4(1), zombie->rotation.y, glm::vec3(0, 1, 0)) * glm::vec4(0, 0, -1, 0);
@@ -1018,7 +1019,10 @@ void MainGameScene::Update()
 				--zombie->target->Actor_HP;
 				sZombiePopSE.SetPosition(zombie->position);
 				sZombiePopSE.Play();
+				hit = true;
 			}
+
+
 		}
 		//Enemyの行動範囲制限
 		for (int i = 0; i < 3; ++i)
@@ -1098,91 +1102,91 @@ void MainGameScene::Update()
 	//===============================追加した衝突判定1======================================
 	//敵同士の衝突判定
 	DetectCollision(enemyList, enemyList, [&](Actor& enemy1, Actor& enemy2)
-	{
-		const CollisionTime t = FindCollisionTime(enemy1, enemy2, deltaTime);
-		if (t.plane != CollisionPlane::none)
 		{
-			const float time = deltaTime * t.time - 0.00001f;
-			enemy1.position += enemy1.velocity * time;
+			const CollisionTime t = FindCollisionTime(enemy1, enemy2, deltaTime);
+			if (t.plane != CollisionPlane::none)
+			{
+				const float time = deltaTime * t.time - 0.00001f;
+				enemy1.position += enemy1.velocity * time;
 
-			if (t.plane == CollisionPlane::negativeX || t.plane == CollisionPlane::positiveX)
-			{
-				enemy1.velocity.x = -2.0f;
-				enemy2.velocity.x = 2.0f;
-			}
-			else if (t.plane == CollisionPlane::negativeY || t.plane == CollisionPlane::positiveY)
-			{
-				enemy1.velocity.y = -2.0f;
-				enemy2.velocity.y = 2.0f;
-			}
-			else if (t.plane == CollisionPlane::negativeZ || t.plane == CollisionPlane::positiveZ)
-			{
-				enemy1.velocity.z = -2.0f;
-				enemy2.velocity.z = 2.0f;
-			}
+				if (t.plane == CollisionPlane::negativeX || t.plane == CollisionPlane::positiveX)
+				{
+					enemy1.velocity.x = -2.0f;
+					enemy2.velocity.x = 2.0f;
+				}
+				else if (t.plane == CollisionPlane::negativeY || t.plane == CollisionPlane::positiveY)
+				{
+					enemy1.velocity.y = -2.0f;
+					enemy2.velocity.y = 2.0f;
+				}
+				else if (t.plane == CollisionPlane::negativeZ || t.plane == CollisionPlane::positiveZ)
+				{
+					enemy1.velocity.z = -2.0f;
+					enemy2.velocity.z = 2.0f;
+				}
 
-			enemy1.velocity *= -t.time;
-			enemy1.position += enemy1.velocity * -time;
-			enemy2.velocity *= -t.time;
-			enemy2.position += enemy2.velocity * -time;
-		}
-	});
+				enemy1.velocity *= -t.time;
+				enemy1.position += enemy1.velocity * -time;
+				enemy2.velocity *= -t.time;
+				enemy2.position += enemy2.velocity * -time;
+			}
+		});
 
 	//===============================追加した衝突判定2======================================
 	//敵と家の衝突判定
 	DetectCollision(enemyList, houseList, [&](Actor& enemy, Actor& object)
-	{
-		const CollisionTime t = FindCollisionTime(enemy, object, deltaTime);
-		if (t.plane != CollisionPlane::none)
 		{
-			const float time = deltaTime * t.time - 0.00001f;
-			enemy.position += enemy.velocity * time;
+			const CollisionTime t = FindCollisionTime(enemy, object, deltaTime);
+			if (t.plane != CollisionPlane::none)
+			{
+				const float time = deltaTime * t.time - 0.00001f;
+				enemy.position += enemy.velocity * time;
 
-			if (t.plane == CollisionPlane::negativeX || t.plane == CollisionPlane::positiveX)
-			{
-				enemy.velocity.x = 0.0f;
-			}
-			else if (t.plane == CollisionPlane::negativeY || t.plane == CollisionPlane::positiveY)
-			{
-				enemy.velocity.y = 0.0f;
-			}
-			else if (t.plane == CollisionPlane::negativeZ || t.plane == CollisionPlane::positiveZ)
-			{
-				enemy.velocity.z = 0.0f;
-			}
+				if (t.plane == CollisionPlane::negativeX || t.plane == CollisionPlane::positiveX)
+				{
+					enemy.velocity.x = 0.0f;
+				}
+				else if (t.plane == CollisionPlane::negativeY || t.plane == CollisionPlane::positiveY)
+				{
+					enemy.velocity.y = 0.0f;
+				}
+				else if (t.plane == CollisionPlane::negativeZ || t.plane == CollisionPlane::positiveZ)
+				{
+					enemy.velocity.z = 0.0f;
+				}
 
-			enemy.velocity *= -t.time;
-			enemy.position += enemy.velocity * -time;
-		}
-	});
+				enemy.velocity *= -t.time;
+				enemy.position += enemy.velocity * -time;
+			}
+		});
 
 	//===============================追加した衝突判定3======================================
 	//敵と木の衝突判定
 	DetectCollision(enemyList, treeList, [&](Actor& enemy, Actor& object)
-	{
-		const CollisionTime t = FindCollisionTime(enemy, object, deltaTime);
-		if (t.plane != CollisionPlane::none)
 		{
-			const float time = deltaTime * t.time - 0.00001f;
-			enemy.position += enemy.velocity * time;
+			const CollisionTime t = FindCollisionTime(enemy, object, deltaTime);
+			if (t.plane != CollisionPlane::none)
+			{
+				const float time = deltaTime * t.time - 0.00001f;
+				enemy.position += enemy.velocity * time;
 
-			if (t.plane == CollisionPlane::negativeX || t.plane == CollisionPlane::positiveX)
-			{
-				enemy.velocity.x = 0.0f;
-			}
-			else if (t.plane == CollisionPlane::negativeY || t.plane == CollisionPlane::positiveY)
-			{
-				enemy.velocity.y = 0.0f;
-			}
-			else if (t.plane == CollisionPlane::negativeZ || t.plane == CollisionPlane::positiveZ)
-			{
-				enemy.velocity.z = 0.0f;
-			}
+				if (t.plane == CollisionPlane::negativeX || t.plane == CollisionPlane::positiveX)
+				{
+					enemy.velocity.x = 0.0f;
+				}
+				else if (t.plane == CollisionPlane::negativeY || t.plane == CollisionPlane::positiveY)
+				{
+					enemy.velocity.y = 0.0f;
+				}
+				else if (t.plane == CollisionPlane::negativeZ || t.plane == CollisionPlane::positiveZ)
+				{
+					enemy.velocity.z = 0.0f;
+				}
 
-			enemy.velocity *= -t.time;
-			enemy.position += enemy.velocity * -time;
-		}
-	});
+				enemy.velocity *= -t.time;
+				enemy.position += enemy.velocity * -time;
+			}
+		});
 
 	//===============================追加した衝突判定4======================================
 	//敵と木の衝突判定
@@ -1233,7 +1237,7 @@ void MainGameScene::Update()
 				score += 50;
 			}
 		}
-	});
+		});
 
 	//===============================追加した衝突判定5======================================
 	//弾とオブジェクトの衝突判定
@@ -1249,7 +1253,7 @@ void MainGameScene::Update()
 			//弾だけHPを0にする
 			bullet.Actor_HP = 0;
 		}
-	});
+		});
 
 
 	// 敵をすべて倒したらステージクリア.
@@ -1275,6 +1279,16 @@ void MainGameScene::Update()
 			sGameOverBGM.Play(10);
 		}
 	}
+	if (hit) {
+		time -= deltaTime;
+		if (time < 0.0f)
+		{
+			hit = false;
+		}
+	}
+	else {
+		time = 0.1f;
+	}
 	//===================================================================
 	//=========================フェード処理===============================
 	//===================================================================
@@ -1298,6 +1312,7 @@ void MainGameScene::Update()
 			}
 			fadeinit = true;
 		}
+
 
 
 		//Fade IN 処理
@@ -1446,6 +1461,7 @@ void MainGameScene::Render()
 	progSimple.BindTexture(0, texGround.Get());
 
 
+
 	{
 		glDisable(GL_DEPTH_TEST);
 
@@ -1571,6 +1587,19 @@ void MainGameScene::Render()
 			//フェード処理
 			progSimple.Draw(meshList[5], glm::vec3(0, 0, 0), glm::vec3(0), glm::vec3(1920, 1080, 10), backGroundAlpha * faderate);
 		}
+
+
+		// Effect用
+
+		float alpha = 0.0f;
+		progSimple.BindTexture(0, texEffectSheet.Get());
+		if (hit) {
+			alpha = 0.6f;
+		}
+		else if (!hit) {
+			alpha = 0.0f;
+		}
+		progSimple.Draw(meshList[5], glm::vec3(0, 0, 0), glm::vec3(0), glm::vec3(1920, 1080, 10), alpha);
 
 		//デバッグ用
 		progSimple.BindTexture(0, texDebugImage.Get());

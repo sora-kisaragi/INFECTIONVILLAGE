@@ -7,7 +7,7 @@
 /// GLFW‚ÆGLEW‚ðƒ‰ƒbƒv‚·‚é‚½‚ß‚Ì–¼‘O‹óŠÔ.
 namespace GLFWEW {
 
-	void APIENTRY OutputGLDebugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar *message, GLvoid *userParam)
+	void APIENTRY OutputGLDebugMessage(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, GLvoid* userParam)
 	{
 		std::cerr << message << "\n";
 	}
@@ -100,6 +100,8 @@ namespace GLFWEW {
 		std::cout << "Renderer: " << renderer << std::endl;
 		const GLubyte* version = glGetString(GL_VERSION);
 		std::cout << "Version: " << version << std::endl;
+
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 		isInitialized = true;
 		return true;

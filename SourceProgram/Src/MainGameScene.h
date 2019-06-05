@@ -98,6 +98,7 @@ private:
 	Texture::Image2D texScore;
 	Texture::Image2D texNumber[10];
 	Texture::Image2D texFadeSheet;
+	Texture::Image2D texEffectSheet;
 	Texture::Image2D texDebugImage;
 
 	Shader::Program progSimple;
@@ -196,8 +197,10 @@ private:
 	float soundfade = 0;
 	bool isShotGun = false;
 	bool isInput = false;
+	bool hit = false;
 
 	bool DEBUGMODE = false;
+	float time = 0.2f;
 
 };
 
