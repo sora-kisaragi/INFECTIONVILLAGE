@@ -9,18 +9,19 @@
 #include <glm/vec3.hpp>
 #include <vector>
 #include <functional>
+#include <memory>
 
 /**
-* ’¼•û‘Ì.
-*/
-struct Rect
-{
-	glm::vec3 origin;
+Actor* FindAvailableActor(std::vector<std::unique_ptr<Actor>>&);
+void UpdateActorList(std::vector<std::unique_ptr<Actor>>&, float);
+void RenderActorList(std::vector<std::unique_ptr<Actor>>&, Shader::Program&, MeshList&);
+
+void DetectCollision(std::vector<std::unique_ptr<Actor>>&, std::vector<std::unique_ptr<Actor>>&, CollsionHandlerType);
 	glm::vec3 size;
 };
 
 /**
-* ƒV[ƒ“‚É”z’u‚·‚éƒIƒuƒWƒFƒNƒg.
+* ã‚·ãƒ¼ãƒ³ã«é…ç½®ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ.
 */
 class Actor
 {
@@ -37,58 +38,58 @@ public:
 	int mesh = 0;
 	GLuint texture = 0;
 
-	//Tranceform•Ï”
+	//Tranceformå¤‰æ•°
 	glm::vec3 position = glm::vec3(0);
 	glm::vec3 rotation = glm::vec3(0);
 	glm::vec3 scale = glm::vec3(1);
 
-	//‘¬“x•Ï”
+	//é€Ÿåº¦å¤‰æ•°
 	glm::vec3 velocity = glm::vec3(0);
-	//HP•Ï”
+	//HPå¤‰æ•°
 	int Actor_HP = 0;
 
-	//ƒ[ƒJƒ‹ƒRƒŠƒWƒ‡ƒ“
+	//ãƒ­ãƒ¼ã‚«ãƒ«ã‚³ãƒªã‚¸ãƒ§ãƒ³
 	Rect colLocal;
-	//ƒ[ƒ‹ƒhƒRƒŠƒWƒ‡ƒ“
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰ã‚³ãƒªã‚¸ãƒ§ãƒ³
 	Rect colWorld;
 };
 
-//—˜—p‰Â”\‚ÈActor‚ğæ“¾‚·‚é.
+//åˆ©ç”¨å¯èƒ½ãªActorã‚’å–å¾—ã™ã‚‹.
 Actor* FindAvailableActor(std::vector<Actor*>&);
-//ƒAƒNƒ^[‚Ìó‘Ô‚ğXV‚·‚é.
+//ã‚¢ã‚¯ã‚¿ãƒ¼ã®çŠ¶æ…‹ã‚’æ›´æ–°ã™ã‚‹.
 void UpdateActorList(std::vector<Actor*>&, float);
-//Actor‚ğ•`‰æ‚·‚é.
+//Actorã‚’æç”»ã™ã‚‹.
 void RenderActorList(std::vector<Actor*>&, Shader::Program&, MeshList&);
-//ƒAƒNƒ^[ƒŠƒXƒg‚ğ‹ó‚É‚·‚é.
+//ã‚¢ã‚¯ã‚¿ãƒ¼ãƒªã‚¹ãƒˆã‚’ç©ºã«ã™ã‚‹.
 void ClearActorList(std::vector<Actor*>&);
 
-//ƒRƒŠƒWƒ‡ƒ“”»’è‚ÌƒOƒ‹[ƒv.
+//ã‚³ãƒªã‚¸ãƒ§ãƒ³åˆ¤å®šã®ã‚°ãƒ«ãƒ¼ãƒ—.
 using CollsionHandlerType = std::function<void(Actor&, Actor&)>;
-//2‚Â‚Ì’·•ûŒ`‚ÌÕ“Ëó‘Ô‚ğ’²‚×‚é.
+//2ã¤ã®é•·æ–¹å½¢ã®è¡çªçŠ¶æ…‹ã‚’èª¿ã¹ã‚‹.
 bool DetectCollision(const Actor&, const Actor&);
-//2‚Â‚ÌƒOƒ‹[ƒvŠÔ‚ÅÕ“Ë”»’è‚ğs‚¤.
+//2ã¤ã®ã‚°ãƒ«ãƒ¼ãƒ—é–“ã§è¡çªåˆ¤å®šã‚’è¡Œã†.
 void DetectCollision(std::vector<Actor*>&, std::vector<Actor*>&, CollsionHandlerType);
 
-// Õ“Ë‚µ‚½–Ê(0=¶, 1=‰E, 2=‰º, 3=ã, 4=‰œ, 5=è‘O).
+// è¡çªã—ãŸé¢(0=å·¦, 1=å³, 2=ä¸‹, 3=ä¸Š, 4=å¥¥, 5=æ‰‹å‰).
 enum class CollisionPlane
 {
-  none = -1, // Õ“Ë‚È‚µ.
-  negativeX = 0, // ¶‘¤.
-  positiveX, // ‰E‘¤.
-  negativeY, // ‰º‘¤.
-  positiveY, // ã‘¤.
-  negativeZ, // ‰œ‘¤.
-  positiveZ, // è‘O‘¤.
+  none = -1, // è¡çªãªã—.
+  negativeX = 0, // å·¦å´.
+  positiveX, // å³å´.
+  negativeY, // ä¸‹å´.
+  positiveY, // ä¸Šå´.
+  negativeZ, // å¥¥å´.
+  positiveZ, // æ‰‹å‰å´.
 };
 
-//Õ“Ë‚·‚é‚Ü‚Å‚ÌŠÔ‚ğŒvZ‚·‚éˆ×‚É•K—v‚È\‘¢‘Ì
+//è¡çªã™ã‚‹ã¾ã§ã®æ™‚é–“ã‚’è¨ˆç®—ã™ã‚‹ç‚ºã«å¿…è¦ãªæ§‹é€ ä½“
 struct CollisionTime
 {
-  float time; // Õ“Ë‚µ‚½ŠÔ.
-  CollisionPlane plane; // Õ“Ë‚µ‚½–Ê.
+  float time; // è¡çªã—ãŸæ™‚é–“.
+  CollisionPlane plane; // è¡çªã—ãŸé¢.
 };
 
-//Õ“Ë‚·‚é‚Ü‚Å‚ÌŒo‰ßŠÔ‚ğŒvZ‚·‚é
+//è¡çªã™ã‚‹ã¾ã§ã®çµŒéæ™‚é–“ã‚’è¨ˆç®—ã™ã‚‹
 CollisionTime FindCollisionTime(const Actor&, const Actor&, float);
 
 #endif // ACTOR_H_INCLUDED

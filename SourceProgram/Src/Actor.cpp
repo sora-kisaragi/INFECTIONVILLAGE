@@ -6,7 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 /**
-* ‰Šú‰».
+* åˆæœŸåŒ–.
 */
 void Actor::Initialize(int mesh, GLuint tex, int hp, const glm::vec3& pos, const glm::vec3& rot, const glm::vec3& scale)
 {
@@ -20,32 +20,22 @@ void Actor::Initialize(int mesh, GLuint tex, int hp, const glm::vec3& pos, const
 }
 
 /**
-* I—¹.
+* çµ‚äº†.
 */
 void Actor::Finalize()
 {
 }
 
 /**
-* XV.
-*
-* @param deltaTime Œo‰ßŠÔ.
+Actor* FindAvailableActor(std::vector<std::unique_ptr<Actor>>& actorList)
+      return actor.get();
+void UpdateActorList(std::vector<std::unique_ptr<Actor>>& actorList, float deltaTime)
 */
-void Actor::Update(float deltaTime)
+void RenderActorList(std::vector<std::unique_ptr<Actor>>& actorList, Shader::Program& shader, MeshList& meshList)
 {
-  position += velocity * deltaTime;
-  colWorld.origin = colLocal.origin + position;
-  colWorld.size = colLocal.size;
-}
-
-/**
-* —˜—p‰Â”\‚ÈActor‚ğæ“¾‚·‚é.
-*
-* @param actorList ŒŸõ‘ÎÛ‚ÌƒAƒNƒ^[‚ÌƒŠƒXƒg.
-*
-* @return —˜—p‰Â”\‚ÈActor‚Ìƒ|ƒCƒ“ƒ^.
-*         —˜—p‰Â”\‚ÈActor‚ªŒ©‚Â‚©‚ç‚È‚¯‚ê‚Înullptr.
-*/
+void DetectCollision(std::vector<std::unique_ptr<Actor>>& va, std::vector<std::unique_ptr<Actor>>& vb, CollsionHandlerType func)
+    if (!a || a->Actor_HP <= 0) {
+      if (!b || b->Actor_HP <= 0) {
 Actor* FindAvailableActor(std::vector<Actor*>& actorList)
 {
   for (auto& actor : actorList) {
@@ -57,10 +47,10 @@ Actor* FindAvailableActor(std::vector<Actor*>& actorList)
 }
 
 /**
-* ƒAƒNƒ^[‚Ìó‘Ô‚ğXV‚·‚é.
+* ã‚¢ã‚¯ã‚¿ãƒ¼ã®çŠ¶æ…‹ã‚’æ›´æ–°ã™ã‚‹.
 *
-* @param actorList XV‚·‚éƒAƒNƒ^[‚ÌƒŠƒXƒg.
-* @param deltaTime ‘O‰ñ‚ÌXV‚©‚ç‚ÌŒo‰ßŠÔ.
+* @param actorList æ›´æ–°ã™ã‚‹ã‚¢ã‚¯ã‚¿ãƒ¼ã®ãƒªã‚¹ãƒˆ.
+* @param deltaTime å‰å›ã®æ›´æ–°ã‹ã‚‰ã®çµŒéæ™‚é–“.
 */
 void UpdateActorList(std::vector<Actor*>& actorList, float deltaTime)
 {
@@ -72,11 +62,11 @@ void UpdateActorList(std::vector<Actor*>& actorList, float deltaTime)
 }
 
 /**
-* Actor‚ğ•`‰æ‚·‚é.
+* Actorã‚’æç”»ã™ã‚‹.
 *
-* @param actorList •`‰æ‚·‚éƒAƒNƒ^[‚ÌƒŠƒXƒg.
-* @param shader    •`‰æ‚Ég—p‚·‚éƒVƒF[ƒ_[EƒIƒuƒWƒFƒNƒg.
-* @param meshList  •`‰æ‚Ég—p‚·‚éƒƒbƒVƒ…ƒŠƒXƒg.
+* @param actorList æç”»ã™ã‚‹ã‚¢ã‚¯ã‚¿ãƒ¼ã®ãƒªã‚¹ãƒˆ.
+* @param shader    æç”»ã«ä½¿ç”¨ã™ã‚‹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ»ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ.
+* @param meshList  æç”»ã«ä½¿ç”¨ã™ã‚‹ãƒ¡ãƒƒã‚·ãƒ¥ãƒªã‚¹ãƒˆ.
 */
 void RenderActorList(std::vector<Actor*>& actorList, Shader::Program& shader, MeshList& meshList)
 {
@@ -89,9 +79,9 @@ void RenderActorList(std::vector<Actor*>& actorList, Shader::Program& shader, Me
 }
 
 /**
-* ƒAƒNƒ^[ƒŠƒXƒg‚ğ‹ó‚É‚·‚é.
+* ã‚¢ã‚¯ã‚¿ãƒ¼ãƒªã‚¹ãƒˆã‚’ç©ºã«ã™ã‚‹.
 *
-* @param actorList ‹ó‚É‚·‚éƒAƒNƒ^[‚ÌƒŠƒXƒg.
+* @param actorList ç©ºã«ã™ã‚‹ã‚¢ã‚¯ã‚¿ãƒ¼ã®ãƒªã‚¹ãƒˆ.
 */
 void ClearActorList(std::vector<Actor*>& actorList)
 {
@@ -105,13 +95,13 @@ void ClearActorList(std::vector<Actor*>& actorList)
 }
 
 /**
-* 2‚Â‚Ì‹éŒ`‚ÌÕ“Ëó‘Ô‚ğ’²‚×‚é.
+* 2ã¤ã®çŸ©å½¢ã®è¡çªçŠ¶æ…‹ã‚’èª¿ã¹ã‚‹.
 *
-* @param lhs ‹éŒ`‚»‚Ì1.
-* @param rhs ‹éŒ`‚»‚Ì2.
+* @param lhs çŸ©å½¢ãã®1.
+* @param rhs çŸ©å½¢ãã®2.
 *
-* @retval true  Õ“Ë‚µ‚Ä‚¢‚é.
-* @retval false Õ“Ë‚µ‚Ä‚¢‚È‚¢.
+* @retval true  è¡çªã—ã¦ã„ã‚‹.
+* @retval false è¡çªã—ã¦ã„ãªã„.
 */
 bool DetectCollision(const Actor& lhs, const Actor& rhs)
 {
@@ -125,11 +115,11 @@ bool DetectCollision(const Actor& lhs, const Actor& rhs)
 }
 
 /**
-* 2‚Â‚ÌƒOƒ‹[ƒvŠÔ‚ÅÕ“Ë”»’è‚ğs‚¤.
+* 2ã¤ã®ã‚°ãƒ«ãƒ¼ãƒ—é–“ã§è¡çªåˆ¤å®šã‚’è¡Œã†.
 *
-* @param va ƒOƒ‹[ƒvA.
-* @param vb ƒOƒ‹[ƒvB.
-* @param func A-BŠÔ‚ÌÕ“Ë‚ğˆ—‚·‚éŠÖ”. 
+* @param va ã‚°ãƒ«ãƒ¼ãƒ—A.
+* @param vb ã‚°ãƒ«ãƒ¼ãƒ—B.
+* @param func A-Bé–“ã®è¡çªã‚’å‡¦ç†ã™ã‚‹é–¢æ•°. 
 */
 void DetectCollision(std::vector<Actor*>& va, std::vector<Actor*>& vb, CollsionHandlerType func)
 {
@@ -152,7 +142,7 @@ void DetectCollision(std::vector<Actor*>& va, std::vector<Actor*>& vb, CollsionH
 }
 
 /**
-* Õ“Ë‚·‚é‚Ü‚Å‚ÌŒo‰ßŠÔ‚ğŒvZ‚·‚é.
+* è¡çªã™ã‚‹ã¾ã§ã®çµŒéæ™‚é–“ã‚’è¨ˆç®—ã™ã‚‹.
 */
 CollisionTime FindCollisionTime(const Actor& a, const Actor& b, float deltaTime)
 {
@@ -161,20 +151,20 @@ CollisionTime FindCollisionTime(const Actor& a, const Actor& b, float deltaTime)
   const glm::vec3 bMin = b.colWorld.origin;
   const glm::vec3 bMax = bMin + b.colWorld.size;
 
-  // ƒAƒNƒ^[a‚ªÃ~AƒAƒNƒ^[b‚ªˆÚ“®‚µ‚Ä‚¢‚é‚Æ‚İ‚È‚µAÕ“Ë‚ª‹N‚±‚Á‚½Å’Z‚ğ’²‚×‚é.
+  // ã‚¢ã‚¯ã‚¿ãƒ¼aãŒé™æ­¢ã€ã‚¢ã‚¯ã‚¿ãƒ¼bãŒç§»å‹•ã—ã¦ã„ã‚‹ã¨ã¿ãªã—ã€è¡çªãŒèµ·ã“ã£ãŸæœ€çŸ­æ™‚åˆ»ã‚’èª¿ã¹ã‚‹.
   const glm::vec3 v = (b.velocity - a.velocity) * deltaTime;
   float tfirst = -1.0f;
   float tlast = 0.0f;
   CollisionPlane plane = CollisionPlane::none;
   for (int i = 0; i < 3; ++i) {
-    // ˆÚ“®•ûŒü‚É‚æ‚Á‚Ä’²‚×‚éŒü‚«‚ğ•Ï‚¦‚é.
-    if (v[i] < 0) { // b‚Í¶‚ÖˆÚ“®’†.
-      // a‚ª‰E‘¤‚É‚ ‚é(Šù‚É—£‚ê‚Ä‚¢‚é)ê‡‚ÍÕ“Ë‚È‚µ.
+    // ç§»å‹•æ–¹å‘ã«ã‚ˆã£ã¦èª¿ã¹ã‚‹å‘ãã‚’å¤‰ãˆã‚‹.
+    if (v[i] < 0) { // bã¯å·¦ã¸ç§»å‹•ä¸­.
+      // aãŒå³å´ã«ã‚ã‚‹(æ—¢ã«é›¢ã‚Œã¦ã„ã‚‹)å ´åˆã¯è¡çªãªã—.
       if (bMax[i] < aMin[i]) {
         return { 1, CollisionPlane::none };
       }
-      // Ã~‘¤(a)‰E’[‚ªˆÚ“®‘¤(b)¶’[‚æ‚è‰E‚É‚ ‚é(s‚«‰ß‚¬‚Ä‚¢‚é)ê‡A‰ß‹‚ÌÕ“Ë‚ğŒvZ.
-      // ‚æ‚è‘å‚«‚¢‚Ù‚¤‚ğÕ“ËŠJn‚Æ‚µ‚ÄÌ—p.
+      // é™æ­¢å´(a)å³ç«¯ãŒç§»å‹•å´(b)å·¦ç«¯ã‚ˆã‚Šå³ã«ã‚ã‚‹(è¡Œãéãã¦ã„ã‚‹)å ´åˆã€éå»ã®è¡çªæ™‚åˆ»ã‚’è¨ˆç®—.
+      // ã‚ˆã‚Šå¤§ãã„ã»ã†ã‚’è¡çªé–‹å§‹æ™‚åˆ»ã¨ã—ã¦æ¡ç”¨.
       if (aMax[i] > bMin[i]) {
         const float newTime = (aMax[i] - bMin[i]) / v[i];
         if (newTime > tfirst) {
@@ -183,17 +173,17 @@ CollisionTime FindCollisionTime(const Actor& a, const Actor& b, float deltaTime)
           tfirst = newTime;
         }
       }
-      // Ã~‘¤(a)¶’[‚ªˆÚ“®‘¤(b)‰E’[‚æ‚è‰E‚É‚ ‚é(s‚«‰ß‚¬‚Ä‚¢‚é)ê‡A‰ß‹‚ÌÕ“Ë‚ğŒvZ.
-      // ‚æ‚è¬‚³‚¢‚Ù‚¤‚ğÕ“ËI—¹‚Æ‚µ‚ÄÌ—p.
+      // é™æ­¢å´(a)å·¦ç«¯ãŒç§»å‹•å´(b)å³ç«¯ã‚ˆã‚Šå³ã«ã‚ã‚‹(è¡Œãéãã¦ã„ã‚‹)å ´åˆã€éå»ã®è¡çªæ™‚åˆ»ã‚’è¨ˆç®—.
+      // ã‚ˆã‚Šå°ã•ã„ã»ã†ã‚’è¡çªçµ‚äº†æ™‚åˆ»ã¨ã—ã¦æ¡ç”¨.
       if (aMin[i] > bMax[i]) {
         tlast = std::min((aMin[i] - bMax[i]) / v[i], tlast);
       }
-    } else if (v[i] > 0) { // b‚Í‰E‚ÖˆÚ“®’†.
-      // a‚ª¶‘¤‚É‚ ‚é(Šù‚É—£‚ê‚Ä‚¢‚é)ê‡‚ÍÕ“Ë‚È‚µ.
+    } else if (v[i] > 0) { // bã¯å³ã¸ç§»å‹•ä¸­.
+      // aãŒå·¦å´ã«ã‚ã‚‹(æ—¢ã«é›¢ã‚Œã¦ã„ã‚‹)å ´åˆã¯è¡çªãªã—.
       if (bMin[i] > aMax[i]) {
         return { 1, CollisionPlane::none };
       }
-      // Ã~‘¤(a)¶’[‚ªˆÚ“®‘¤(b)‰E’[‚æ‚è¶‚É‚ ‚é(s‚«‰ß‚¬‚Ä‚¢‚é)ê‡A‰ß‹‚ÌÕ“Ë‚ğŒvZ.
+      // é™æ­¢å´(a)å·¦ç«¯ãŒç§»å‹•å´(b)å³ç«¯ã‚ˆã‚Šå·¦ã«ã‚ã‚‹(è¡Œãéãã¦ã„ã‚‹)å ´åˆã€éå»ã®è¡çªæ™‚åˆ»ã‚’è¨ˆç®—.
       if (aMin[i] < bMax[i]) {
         const float newTime = (aMin[i] - bMax[i]) / v[i];
         if (newTime > tfirst) {
@@ -202,7 +192,7 @@ CollisionTime FindCollisionTime(const Actor& a, const Actor& b, float deltaTime)
           tfirst = newTime;
         }
       }
-      // Ã~‘¤(a)‰E’[‚ªˆÚ“®‘¤(b)¶’[‚æ‚è¶‚É‚ ‚é(s‚«‰ß‚¬‚Ä‚¢‚é)ê‡A‰ß‹‚ÌÕ“Ë‚ğŒvZ.
+      // é™æ­¢å´(a)å³ç«¯ãŒç§»å‹•å´(b)å·¦ç«¯ã‚ˆã‚Šå·¦ã«ã‚ã‚‹(è¡Œãéãã¦ã„ã‚‹)å ´åˆã€éå»ã®è¡çªæ™‚åˆ»ã‚’è¨ˆç®—.
       if (aMax[i] < bMin[i]) {
         tlast = std::min((aMax[i] - bMin[i]) / v[i], tlast);
       }

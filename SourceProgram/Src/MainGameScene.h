@@ -12,17 +12,18 @@
 #include "SoundList.h"
 #include <random>
 #include <iostream>
+#include <memory>
 
 
 
-//ƒtƒF[ƒh—pƒ}ƒNƒ
+//ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ãƒã‚¯ãƒ­
 #define	DEFAULT_FADERATE 1.0f
-//ƒ]ƒ“ƒr‚ÌUŒ‚‘¬“x
+//ã‚¾ãƒ³ãƒ“ã®æ”»æ’ƒé€Ÿåº¦
 #define DEFAULT_ATTACKSPEED 1.2f
-//ƒJƒƒ‰‚ÌƒIƒtƒZƒbƒgÀ•W
+//ã‚«ãƒ¡ãƒ©ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆåº§æ¨™
 #define DEFAULT_CAM_OFFSET_TPS glm::vec3(0.4,2.3,2)
 #define DEFAULT_CAM_OFFSET_FPS glm::vec3(0,1.8,0);
-//e‚ÌMAXc’e”
+//éŠƒã®MAXæ®‹å¼¾æ•°
 #define DEFAULT_SG_REMAINING 10
 #define DEFAULT_AL_REMAINING 60
 
@@ -30,7 +31,7 @@
 
 
 /**
-* ƒvƒŒƒCƒ„[‚ª‘€ì‚·‚éƒAƒNƒ^[.
+* ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ“ä½œã™ã‚‹ã‚¢ã‚¯ã‚¿ãƒ¼.
 */
 class PlayerActor : public Actor
 {
@@ -40,7 +41,7 @@ public:
 };
 
 /**
-* ƒvƒŒƒCƒ„[‚©‚ç”­Ë‚³‚ê‚é’e‚ÌƒAƒNƒ^[.
+* ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰ç™ºå°„ã•ã‚Œã‚‹å¼¾ã®ã‚¢ã‚¯ã‚¿ãƒ¼.
 */
 class BulletActor : public Actor
 {
@@ -50,7 +51,7 @@ public:
 };
 
 /**
-* “G(ƒ]ƒ“ƒr)‚ÌƒAƒNƒ^[.
+* æ•µ(ã‚¾ãƒ³ãƒ“)ã®ã‚¢ã‚¯ã‚¿ãƒ¼.
 */
 class ZombieActor : public Actor
 {
@@ -66,7 +67,7 @@ public:
 };
 
 /**
-* ƒƒCƒ“ƒQ[ƒ€‰æ–Ê.
+* ãƒ¡ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ç”»é¢.
 */
 class MainGameScene : public Scene
 {
@@ -109,7 +110,7 @@ private:
 	float pointLightAngle;
 
 
-	//==================ƒJƒƒ‰ŠÖŒW==========================
+	//==================ã‚«ãƒ¡ãƒ©é–¢ä¿‚==========================
 	float P_T_Distance = 100;
 	glm::vec3 targetPos = glm::vec3(0, 0, 0);
 	glm::vec3 vPos = glm::vec3(0, 0, 0);
@@ -136,26 +137,26 @@ private:
 	std::mt19937 random;
 
 	PlayerActor player;
-	std::vector<Actor*> playerBulletList;
-	std::vector<Actor*> enemyList;
-	std::vector<Actor*> objectList;
-	std::vector<Actor*> houseList;
-	std::vector<Actor*> treeList;
-	std::vector<Actor*> rockList;
+	std::vector<std::unique_ptr<Actor>> playerBulletList;
+	std::vector<std::unique_ptr<Actor>> enemyList;
+	std::vector<std::unique_ptr<Actor>> objectList;
+	std::vector<std::unique_ptr<Actor>> houseList;
+	std::vector<std::unique_ptr<Actor>> treeList;
+	std::vector<std::unique_ptr<Actor>> rockList;
 
 	float playerBulletTimer = 0;
 	int score = 0;
 
 	int stageNo = 1;
-	float enemySpeed = 1.0f; // ƒ]ƒ“ƒr‚ÌˆÚ“®‘¬“x.
+	float enemySpeed = 1.0f; // ã‚¾ãƒ³ãƒ“ã®ç§»å‹•é€Ÿåº¦.
 	float enemyPoppingInterval = 15.0f;
 	float enemyPoppingTimer = 3.0f;
 
-	int enemyTotal = 100; // “G‚Ì‘”.
-	int enemyLeft = 100; // –¢“oê‚Ì“G‚Ì”. “G‚ğoŒ»‚³‚¹‚é‚½‚Ñ‚ÉŒ¸­‚µ‚Ä‚¢‚­.
-	int enemyKilled = 0; // E‚µ‚½“G‚Ì”. ‚±‚Ì”’l‚ªenemyTotal‚Æ“™‚µ‚­‚È‚Á‚½‚çƒXƒe[ƒWƒNƒŠƒA.
+	int enemyTotal = 100; // æ•µã®ç·æ•°.
+	int enemyLeft = 100; // æœªç™»å ´ã®æ•µã®æ•°. æ•µã‚’å‡ºç¾ã•ã›ã‚‹ãŸã³ã«æ¸›å°‘ã—ã¦ã„ã.
+	int enemyKilled = 0; // æ®ºã—ãŸæ•µã®æ•°. ã“ã®æ•°å€¤ãŒenemyTotalã¨ç­‰ã—ããªã£ãŸã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢.
 
-	//ƒtƒF[ƒh—p•Ï”
+	//ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨å¤‰æ•°
 	float backGroundAlpha = 1.0f;
 	float faderate = DEFAULT_FADERATE;
 	bool fadeOut = false;
@@ -165,18 +166,18 @@ private:
 	bool gameOverMove = false;
 	float movetimer = 2;
 
-	//Stage‚ÌSE—p•Ï”?
+	//Stageã®SEç”¨å¤‰æ•°?
 	bool StageFinishSE = true;
 
 	double mousePosX;
 	double LastMousePosX;
-	//ƒVƒ‡ƒbƒgƒKƒ“‚Ìc’e”
+	//ã‚·ãƒ§ãƒƒãƒˆã‚¬ãƒ³ã®æ®‹å¼¾æ•°
 	int sg_Remaining = DEFAULT_SG_REMAINING;
-	//ƒAƒTƒ‹ƒgƒ‰ƒCƒtƒ‹‚Ìc’e”
+	//ã‚¢ã‚µãƒ«ãƒˆãƒ©ã‚¤ãƒ•ãƒ«ã®æ®‹å¼¾æ•°
 	int al_Remaining = DEFAULT_AL_REMAINING;
 	float reloadtimer = 0.0f;
 
-	//Sound•Ï”
+	//Soundå¤‰æ•°
 	Sound::Player sMainBGM;
 	Sound::Player sShotSE;
 	Sound::Player sChangeWeapon;
