@@ -1,144 +1,68 @@
-# INFECTIONVILLAGE 仕様説明書
+# INFECTIONVILLAGE
 
+学生時代に制作した C++ の 3D ゾンビシューティングゲームです。OpenGL で描画し、OpenAL でサウンドを再生します。
 
+## 目的
 
-※このテキストは実装内容の簡単な説明と解説が記されています
+- ソースコード公開・レビュー用の保管
+- ビルド/実行に必要な情報の共有
 
-## これは  **OpenGL OpenAL GLSL** で実装した3Dゲームです
+## リポジトリ構成
 
-本作品は  
-[ 7 D◯ys t◯ D◯e ]から　クラフト要素を抜いた  
-もしくは  
-[ D◯yZ ] や [ L◯ft ◯ De◯d ]から協力　オンライン要素を抜いた
+- `SourceProgram/`
+  - Visual Studio ソリューションとソースコード
+  - `SourceProgram/Src/` にゲーム本体の C++ 実装
+- `Res/`（`SourceProgram/Res/`）
+  - モデル/テクスチャ/シェーダーなどのゲーム素材
+- `IV_ver2.0/`
+  - 当時の配布物や関連データ（必要に応じて参照）
 
-## <font color = "Crimson">ゾンビ シューティング サバイバル ゲーム</font>です
+## 必要環境
 
-## 1.動作確認環境
-* Windows 10 Home
-	* version 1809
-	* OSビルド 17763.437
+- Windows 10 以上
+- Visual Studio（ソリューション: `SourceProgram/INFECTIONVILLAGE.sln`）
+- OpenAL SDK
 
-		* [Update手順](https://pc-karuma.net/windows10-october-2018-update-manually/)
+> メモ: 依存ライブラリは `SourceProgram/packages/` と `packages.config` に含まれています。
 
-* OpenAL SDK
-	* version 2.0.7.0  
-	おそらく必要なものはこちらのバージョン
+## ビルド手順（Windows）
 
-		* [DLリンク](https://openal.softonic.jp/)
+1. `SourceProgram/INFECTIONVILLAGE.sln` を Visual Studio で開きます。
+2. ソリューション構成を `Release` もしくは `Debug` に設定します。
+3. 必要に応じて OpenAL SDK をインストールします。
+4. ビルドを実行します。
 
-* PCスペック (動作確認環境)
-	* CPU : Intel Core i7-7700HQ
-	* GPU : GeForce GTX 1050ti 4GB
-	* メモリ : DDR4 16GB
+## 実行方法
 
+- ビルド後に生成される `INFECTIONVILLAGE.exe` を実行します。
+- 実行時に `SourceProgram/Res/` が参照できる配置で起動してください。
 
+## 主な操作
 
-## 2.Play手順
-* **INFECTIONVILLAGE** のフォルダ内にある **INFECTIONVILLAGE.exe**を実行
-* 以上
+- 移動: WASD
+- 走る: Left Shift
+- 攻撃: 左クリック / Space
+- リロード: R
+- 武器切替: Left Ctrl
+- 視点切替: M
 
-## 3.操作方法
-* キーボートとマウスを使用 
-	* 移動  
-		WASD
+詳細は `README.old.md` に記載しています。
 
-	* ダッシュ  
-	左シフト
+## 開発ドキュメント
 
-	* カメラ  
-	矢印キー  
-	右クリック + マウスドラッグ
+- 貢献ガイド: `CONTRIBUTING.md`
+- 行動規範: `CODE_OF_CONDUCT.md`
+- セキュリティ報告: `SECURITY.md`
+- 変更履歴: `CHANGELOG.md`
 
-	* 弾を撃つ  
-	Space  
-	左クリック
+## ライセンス
 
-	* リロード  
-	R
+商用利用不可・改変可能・再配布不可です。詳細は `LICENSE` を参照してください。
 
-	* 銃の種類を替える  
-	左Ctrl
+## 作者
 
-	* 実験的機能 カメラモード切り替え  
-	M
+- 如月優空
 
-		* デバッグモード切り替え  
-		Ctrl + Alt + D  
-		すべての機能にCtrl + Altが必要  
+## 旧ドキュメント
 
-		* デバッグモード ゾンビ殲滅  
-		キルコマンド K
-
-		* デバッグモード スーパーダッシュ  
-		右SHift
-
-		* デバッグモード フェード  
-		in  F + I  
-		out F + O
-
-		* デバッグモード シーン移動  
-		CLEAR G + C  
-		OVER  G + O
-
-		* デバッグモード MainBGM  
-		再生 P  
-		停止 S
-
-		* デバッグモード 3D音源1 ドップラー効果  
-		再生 1  
-		停止 2
-
-		* デバッグモード 3D音源2 3D音源を確認  
-		再生 3  
-		停止 4
-
-		* デバッグモード 3D音源3 指向性音源を確認  
-		再生 5
-		停止 6
-
-
-
-## 4.謝辞
-* この作品の制作には,下記のソフトウェア及び素材を使用させていただきました.
-	* ソフトウェア
-		* **UE4** (家のモデル制作) [公式サイト](https://www.unrealengine.com/ja/)
-		* **Blender2.79b** [公式サイト](https://www.blender.org/)
-		* **Audacity** [公式サイト](https://www.audacityteam.org/)
-
-	* BGM 効果音
-		* H/MIX GALLERY [HPリンク](http://www.hmix.net/)
-		* On-Jin ~音人~ [HPリンク](https://on-jin.com/)
-		* びたちー素材館 [HPリンク](http://www.vita-chi.net/sozai1.htm)
-
-	* ライブラリ
-		* 知人が作成したOpenAL自作ライブラリを利用 [知人のGitHub](https://github.com/TakahashiMichael/opneALExtension)
-
-	* 背景イラストとタイトルコール
-		* 同学校　学生に制作していただきました
-
-
-## 5.製作者
-* 作者名 如月優空
-* [Twitter](https://twitter.com/kisa_sora)
-* [作品のグッズ販売ページ](https://suzuri.jp/kisa_sora)
-
-
-## 6.注意事項
-* 本作の無断転載・無断商用利用は禁止です。
-* ただしソースコードを参考にするのは構いません
-* プレイ動画のアップロードや2次創作の公開などはご自由にどうぞ
-* またPlayした意見などはTwitterでリプライやDMを貰えるとありがたいです.
-
-
-## 7.更新履歴
-2019年4月26日 ver1.00を公開  
-2019年5月4日  ver2.00を公開  
-2019年5月4日  ver2.10を公開
-
-
-
-
-
-<div style="text-align: right;">
-(c)2019 如月 優空
-</div>
+- 旧 README は `README.old.md` に保管しています。
