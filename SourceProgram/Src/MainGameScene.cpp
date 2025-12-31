@@ -8,21 +8,21 @@
 #define DEFAULT_PLAYER_SPEED 10.0f
 
 /**
-* ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ğXV‚·‚é.
+* ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ã‚’æ›´æ–°ã™ã‚‹.
 *
-* @param deltaTime Œo‰ßŠÔ.
+* @param deltaTime çµŒéæ™‚é–“.
 */
 void PlayerActor::Update(float deltaTime)
 {
-	//HP‚ª 0ˆÈã ‚È‚ç‚Î
+	//HPãŒ 0ä»¥ä¸Š ãªã‚‰ã°
 	if (Actor_HP <= 0) {
-		//³–Ê‚ÖŒü‚¯‚é (rad -45‹)
+		//æ­£é¢ã¸å‘ã‘ã‚‹ (rad -45Â°)
 		rotation.x -= glm::radians(45.0f) * deltaTime;
 
-		//Player‚Ìrotation.x‚ª {rad -90‹} ‚æ‚è‚à¬‚³‚¯‚ê‚Î
+		//Playerã®rotation.xãŒ {rad -90Â°} ã‚ˆã‚Šã‚‚å°ã•ã‘ã‚Œã°
 		if (rotation.x < glm::radians(-90.0f)) {
 
-			//³–Ê‚ÖŒü‚¯‚é { (-45‹) + (-90‹) }
+			//æ­£é¢ã¸å‘ã‘ã‚‹ { (-45Â°) + (-90Â°) }
 			rotation.x = glm::radians(-90.0f);
 		}
 
@@ -32,20 +32,20 @@ void PlayerActor::Update(float deltaTime)
 }
 
 /**
-* ƒvƒŒƒCƒ„[‚Ì’e‚Ìó‘Ô‚ğXV‚·‚é.
+* ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å¼¾ã®çŠ¶æ…‹ã‚’æ›´æ–°ã™ã‚‹.
 */
 void BulletActor::Update(float deltaTime)
 {
 	position.y *= 0.98;
 	for (int i = 0; i < 3; ++i) {
-		//Position {ƒXƒe[ƒWƒTƒCƒY} ‚ª {-200~200} ‚ÌŠÔ‚È‚ç‚Î
+		//Position {ã‚¹ãƒ†ãƒ¼ã‚¸ã‚µã‚¤ã‚º} ãŒ {-200~200} ã®é–“ãªã‚‰ã°
 		if (position[i] < -200 || position[i] > 200) {
-			//HP‚ğ0‚É‚·‚é
+			//HPã‚’0ã«ã™ã‚‹
 			Actor_HP = 0;
-		}//’n–Ê‚æ‚è‰º‚É‚È‚Á‚½‚ç
+		}//åœ°é¢ã‚ˆã‚Šä¸‹ã«ãªã£ãŸã‚‰
 		if (position[1] < 0)
 		{
-			//HP‚ğ0‚É‚·‚é
+			//HPã‚’0ã«ã™ã‚‹
 			Actor_HP = 0;
 		}
 	}
@@ -53,22 +53,22 @@ void BulletActor::Update(float deltaTime)
 }
 
 /**
-* ƒ]ƒ“ƒr‚Ìó‘Ô‚ğXV‚·‚é.
+* ã‚¾ãƒ³ãƒ“ã®çŠ¶æ…‹ã‚’æ›´æ–°ã™ã‚‹.
 */
 void ZombieActor::Update(float deltaTime)
 {
-	//‚à‚µPlayer‚ğTraget‚µ‚Ä‚È‚©‚Á‚½‚ç
+	//ã‚‚ã—Playerã‚’Tragetã—ã¦ãªã‹ã£ãŸã‚‰
 	if (!target) {
-		//UpdateI—¹
+		//Updateçµ‚äº†
 		return;
 	}
 
 	bool hit = false;
-	//ˆÚ“®‘¬“x‚ğİ’è {ƒx[ƒX x2}
+	//ç§»å‹•é€Ÿåº¦ã‚’è¨­å®š {ãƒ™ãƒ¼ã‚¹ x2}
 	const float moveSpeed = baseSpeed * 2.0f;
-	//‰ñ“]‘¬“x‚ğİ’è {ƒx[ƒX x2}
+	//å›è»¢é€Ÿåº¦ã‚’è¨­å®š {ãƒ™ãƒ¼ã‚¹ x2}
 	const float rotationSpeed = baseSpeed * glm::radians(150.0f);
-	//UŒ‚”ÍˆÍ?
+	//æ”»æ’ƒç¯„å›²?
 	const float frontRange = glm::radians(15.0f);
 
 	const glm::vec3 v = target->position - position;
@@ -94,7 +94,7 @@ void ZombieActor::Update(float deltaTime)
 		}
 	}
 
-	// \•ª‚ÉÚ‹ß‚µ‚Ä‚¢‚È‚¯‚ê‚ÎˆÚ“®‚·‚é. Ú‹ß‚µ‚Ä‚¢‚ê‚ÎUŒ‚‚·‚é.
+	// ååˆ†ã«æ¥è¿‘ã—ã¦ã„ãªã‘ã‚Œã°ç§»å‹•ã™ã‚‹. æ¥è¿‘ã—ã¦ã„ã‚Œã°æ”»æ’ƒã™ã‚‹.
 	if (glm::length(v) > 1.0f) {
 		velocity = vZombieFront * moveSpeed;
 	}
@@ -102,7 +102,7 @@ void ZombieActor::Update(float deltaTime)
 		velocity = glm::vec3(0);
 
 
-		// ’èŠú“I‚ÉUŒ‚ó‘Ô‚É‚È‚é.
+		// å®šæœŸçš„ã«æ”»æ’ƒçŠ¶æ…‹ã«ãªã‚‹.
 		if (isAttacking) {
 			isAttacking = false;
 			attackingTimer = DEFAULT_ATTACKSPEED;
@@ -120,13 +120,13 @@ void ZombieActor::Update(float deltaTime)
 
 
 /**
-* ‰Šú‰».
+* åˆæœŸåŒ–.
 */
 bool MainGameScene::Initialize()
 {
 	random.seed(std::random_device()());
 
-	//Sound‚Ì‰Šú‰»
+	//Soundã®åˆæœŸåŒ–
 	sMainBGM.Init(SOUND_PASS_MAINMAPBGM);
 	sShotSE.Init(SOUND_PASS_SHOTSE);
 	sAssaultSE.Init(SOUND_PASS_ASSAULT);
@@ -168,7 +168,7 @@ bool MainGameScene::Initialize()
 	Sound::ListenerUpVector(0, 1, 0);
 
 
-	//Model‚Ì“Ç‚İ‚İ
+	//Modelã®èª­ã¿è¾¼ã¿
 	std::vector<std::string> modelFiles;
 	modelFiles.push_back("Res/Tree.obj");	//0
 	modelFiles.push_back("Res/House.obj");	//1
@@ -186,7 +186,7 @@ bool MainGameScene::Initialize()
 	progSimple.Reset(Shader::BuildFromFile("Res/Simple.vert", "Res/Simple.frag"));
 	progLighting.Reset(Shader::BuildFromFile("Res/FragmentLighting.vert", "Res/FragmentLighting.frag"));
 
-	//ƒeƒNƒXƒ`ƒƒ‚Ì“K—p
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é©ç”¨
 	texGround.Reset(Texture::LoadImage2D("Res/Ground.tga"));
 	texTree.Reset(Texture::LoadImage2D("Res/Tree.tga"));
 	texHouse.Reset(Texture::LoadImage2D("Res/House.tga"));
@@ -210,59 +210,59 @@ bool MainGameScene::Initialize()
 	texEffectSheet.Reset(Texture::LoadImage2D("Res/Effect.tga"));
 	texDebugImage.Reset(Texture::LoadImage2D("Res/sorachan.tga"));
 
-	// ƒ‰ƒCƒg‚Ìİ’è.
+	// ãƒ©ã‚¤ãƒˆã®è¨­å®š.
 	lights.ambient.color = glm::vec3(0.05f, 0.01f, 0.01f);
-	//Ô‚Á‚Û‚¢F‚Ì•µˆÍ‹C==========================================================================================
+	//èµ¤ã£ã½ã„è‰²ã®é›°å›²æ°—==========================================================================================
 	lights.directional.direction = glm::normalize(glm::vec3(3, -8, -2));
 	lights.directional.color = glm::vec3(1.2, 0.8, 0.8);
 
 
 	pointLightAngle = 0;
 
-	//Player‚ğ‰Šú‰»
+	//Playerã‚’åˆæœŸåŒ–
 	player.Initialize(4, texHuman.Get(), 10, glm::vec3(8, 0, 8), glm::vec3(0), glm::vec3(1));
 
-	//Player‚Ì“–‚½‚è”»’èƒTƒCƒY
+	//Playerã®å½“ãŸã‚Šåˆ¤å®šã‚µã‚¤ã‚º
 	player.colLocal = { {-0.5f, 0, -0.5f }, {1, 1.7f, 1} };
-	//Player‚Ì’e”‚ğƒŠƒTƒCƒY
+	//Playerã®å¼¾æ•°ã‚’ãƒªã‚µã‚¤ã‚º
 	playerBulletList.resize(256);
 
-	//’e128ŒÂ•ªì‚é
+	//å¼¾128å€‹åˆ†ä½œã‚‹
 	for (auto& e : playerBulletList) {
 		e = new BulletActor;
 	}
-	//enemy‚ğƒŠƒTƒCƒY
+	//enemyã‚’ãƒªã‚µã‚¤ã‚º
 	enemyList.resize(128);
 	for (auto& e : enemyList) {
 		e = new ZombieActor;
 	}
 
-	//ƒIƒuƒWƒFƒNƒg‚ğƒŠƒTƒCƒY
+		e = new Actor;
 	objectList.resize(2);
 	for (auto& e : objectList) {
 		e = new Actor;
 	}
 
-	//‰Æ‚ÌƒŠƒXƒg‚ğƒŠƒTƒCƒY
+	//å®¶ã®ãƒªã‚¹ãƒˆã‚’ãƒªã‚µã‚¤ã‚º
 	houseList.resize(128);
 	for (auto& e : houseList)
 	{
 		e = new Actor;
 	}
-	//–Ø‚ÌƒŠƒXƒg‚ğƒŠƒTƒCƒY
+	//æœ¨ã®ãƒªã‚¹ãƒˆã‚’ãƒªã‚µã‚¤ã‚º
 	treeList.resize(256);
 	for (auto& e : treeList)
 	{
 		e = new Actor;
 	}
-	//Šâ‚ÌƒŠƒXƒg‚ğƒŠƒTƒCƒY
+	//å²©ã®ãƒªã‚¹ãƒˆã‚’ãƒªã‚µã‚¤ã‚º
 	rockList.resize(64);
 	for (auto& e : rockList)
 	{
 		e - new Actor;
 	}
 
-	//ƒ}ƒbƒv‚Ì¶ã‚ğƒx[ƒX‚É‚·‚é
+	//ãƒãƒƒãƒ—ã®å·¦ä¸Šã‚’ãƒ™ãƒ¼ã‚¹ã«ã™ã‚‹
 	glm::vec3 basepos = glm::vec3(-195, 0, -195);
 	glm::vec3 HouseBasePos = glm::vec3(0, 0, 0);
 
@@ -278,63 +278,63 @@ bool MainGameScene::Initialize()
 	int nowtree = 0;
 	int nowrock = 0;
 
-	//‰Æ“¯m‚ÌŠÔŠu
+	//å®¶åŒå£«ã®é–“éš”
 	std::uniform_int_distribution<int> baseMoveRangeX(80.0f, 120.0f);
 	std::uniform_int_distribution<int> baseMoveRangeZ(20.0f, 40.0f);
 
-	//‰Æ‚Ìrotation‚Æscale
+	//å®¶ã®rotationã¨scale
 	std::uniform_int_distribution<int> houseRotationRange(0.0f, 360.0f);
 	std::uniform_int_distribution<int> houseScaleRange(4.0f, 8.0f);
 
-	//–Ø‚Ìrotation‚Æscale
+	//æœ¨ã®rotationã¨scale
 	std::uniform_int_distribution<int> treeRotationRange(0.0f, 360.0f);
 	std::uniform_int_distribution<int> treeScaleRangeXZ(0.7f, 1.2f);
 	std::uniform_int_distribution<int> treeScaleRangeY(1.0f, 1.8f);
 
-	//Šâ‚Ìrotation‚Æscale
+	//å²©ã®rotationã¨scale
 	std::uniform_int_distribution<int> rockRotationRange(0.0f, 360.0f);
 	std::uniform_int_distribution<int> rockScaleRange(0.7f, 1.2f);
 
-	//ƒIƒuƒWƒFƒNƒg‚Ì¶¬
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆ
 	for (int i = 0; i < createHouse; ++i)
 	{
 
-		//========================‰Æ‚ğ¶¬‚·‚é===============================
-		//ƒx[ƒX‚É‚È‚époint‚ğİ’è
-		//‚à‚µ 1 ~ 3‰ñ‚Ìì¬‚È‚ç x²‚ğ‚¸‚ç‚·
+		//========================å®¶ã‚’ç”Ÿæˆã™ã‚‹===============================
+		//ãƒ™ãƒ¼ã‚¹ã«ãªã‚‹pointã‚’è¨­å®š
+		//ã‚‚ã— 1 ~ 3å›ã®ä½œæˆãªã‚‰ xè»¸ã‚’ãšã‚‰ã™
 		if ((i % 4) != 0)
 		{
 			basepos.x += baseMoveRangeX(random);
 
 		}
-		//‚à‚µ 5‰ñ–Ú‚Ìì¬‚È‚ç z²‚ğ‚¸‚ç‚·
+		//ã‚‚ã— 5å›ç›®ã®ä½œæˆãªã‚‰ zè»¸ã‚’ãšã‚‰ã™
 		else if ((i % 4) == 0)
 		{
 			basepos.x = -195.0f;
 			basepos.z += baseMoveRangeZ(random);
 		}
 
-		//ƒx[ƒX‚Ìtransform‚ğ¶¬
+		//ãƒ™ãƒ¼ã‚¹ã®transformã‚’ç”Ÿæˆ
 		glm::vec3 houseSpawnPos = basepos + HouseBasePos;
 		glm::vec3 houseSpawnRot = glm::vec3(0, houseRotationRange(random), 0);
 		glm::vec3 houseSpawnSca = glm::vec3(houseScaleRange(random));
 
-		//‰Æ‚Ì¶¬ˆ—
+		//å®¶ã®ç”Ÿæˆå‡¦ç†
 		houseList[(size_t)i]->Initialize(1, texHouse.Get(), 1, houseSpawnPos, houseSpawnRot, houseSpawnSca * 0.1f);
 		houseList[(size_t)i]->colLocal = { {-(houseSpawnSca.x * 0.5), 0, -(houseSpawnSca.x * 0.5) }, { houseSpawnSca} };
 		houseList[(size_t)i]->Update(0);
 
 
-		//========================–Ø‚ğ¶¬‚·‚é=====================
+		//========================æœ¨ã‚’ç”Ÿæˆã™ã‚‹=====================
 		for (int i = 0; i < 2; ++i)
 		{
 
-			//ƒx[ƒX‚Ìtransform‚ğƒZƒbƒg
+			//ãƒ™ãƒ¼ã‚¹ã®transformã‚’ã‚»ãƒƒãƒˆ
 			glm::vec3 treeSpawnPos = houseSpawnPos;
 			glm::vec3 treeSpawnRot = glm::vec3(0, treeRotationRange(random), 0);
 			glm::vec3 treeSpawnSca = glm::vec3(treeScaleRangeXZ(random));
 			treeSpawnSca.y = treeScaleRangeY(random);
-			//¶¬‰ñ”‚É‚æ‚Á‚Äposition‚Ì•ÏX
+			//ç”Ÿæˆå›æ•°ã«ã‚ˆã£ã¦positionã®å¤‰æ›´
 			if ((i % 3) == 0)
 			{
 				treeSpawnPos += treeBasePos1;
@@ -347,7 +347,7 @@ bool MainGameScene::Initialize()
 			{
 				treeSpawnPos += treeBasePos3;
 			}
-			//¶¬ˆ—
+			//ç”Ÿæˆå‡¦ç†
 			treeList[(size_t)nowtree]->Initialize(0, texTree.Get(), 1, treeSpawnPos, treeSpawnRot, treeSpawnSca);
 			treeList[(size_t)nowtree]->colLocal = { {-(treeSpawnSca.x * 0.5), 0, -(treeSpawnSca.z * 0.5) }, { treeSpawnSca } };
 			treeList[(size_t)nowtree]->Update(0);
@@ -356,12 +356,12 @@ bool MainGameScene::Initialize()
 
 		//if ((i % 2) == 0)
 		//{
-		//	//ƒx[ƒX‚Ìtransform‚ğƒZƒbƒg
+		//	//ãƒ™ãƒ¼ã‚¹ã®transformã‚’ã‚»ãƒƒãƒˆ
 		//	glm::vec3 rockSpawnPos = houseSpawnPos;
 		//	glm::vec3 rockSpawnRot = glm::vec3(0, rockRotationRange(random), 0);
 		//	glm::vec3 rockSpawnSca = glm::vec3(rockScaleRange(random), rockScaleRange(random), rockScaleRange(random));
 
-		//	//¶¬‰ñ”‚É‚æ‚Á‚Äposition‚Ì•ÏX
+		//	//ç”Ÿæˆå›æ•°ã«ã‚ˆã£ã¦positionã®å¤‰æ›´
 		//	if ((i % 2) == 0)
 		//	{
 		//		rockSpawnPos += rockBasePos1;
@@ -372,7 +372,7 @@ bool MainGameScene::Initialize()
 		//	}
 
 
-		//	//¶¬ˆ—
+		//	//ç”Ÿæˆå‡¦ç†
 		//	rockList[(size_t)nowrock]->Initialize(2, texRock.Get(), 1, rockSpawnPos, rockSpawnRot, rockSpawnSca);
 		//	rockList[(size_t)nowrock]->colLocal = { {-(rockSpawnSca.x * 0.5), 0, -(rockSpawnSca.z * 0.5) }, { rockSpawnSca } };
 		//	rockList[(size_t)nowrock]->Update(0);
@@ -390,13 +390,13 @@ bool MainGameScene::Initialize()
 	enemyLeft = enemyTotal;
 	enemyKilled = 0;
 
-	//PlayMode‚ğFPS‚Éİ’è
+	//PlayModeã‚’FPSã«è¨­å®š
 	playmode = PlayMode::eFPS;
 
-	//Shot‚ğƒAƒTƒ‹ƒg‚ÉƒZƒbƒg
+	//Shotã‚’ã‚¢ã‚µãƒ«ãƒˆã«ã‚»ãƒƒãƒˆ
 	isShotGun = false;
 
-	//ƒtƒF[ƒh•Ï”‚Ì‰Šú‰»
+	//ãƒ•ã‚§ãƒ¼ãƒ‰å¤‰æ•°ã®åˆæœŸåŒ–
 	backGroundAlpha = 1.0f;
 	faderate = DEFAULT_FADERATE;
 	fadeOut = false;
@@ -414,7 +414,7 @@ bool MainGameScene::Initialize()
 }
 
 /**
-* “ü—Í”½‰f.
+* å…¥åŠ›åæ˜ .
 */
 void MainGameScene::ProcessInput()
 {
@@ -424,12 +424,12 @@ void MainGameScene::ProcessInput()
 
 	if (state == State::play && !fadein) {
 
-		// ƒvƒŒƒCƒ„[‚ğˆÚ“®‚·‚é.
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç§»å‹•ã™ã‚‹.
 		const float speed = DEFAULT_PLAYER_SPEED;
 		player.velocity = glm::vec3(0);
 		const glm::mat4x4 rotaPT = glm::rotate(glm::mat4(1), glm::radians(CameraAngleX), glm::vec3(0, 1, 0));
 
-		//FPS‚ÆTPS‚ğØ‚è‘Ö‚¦‚é **ƒeƒXƒgÀ‘•**
+		//FPSã¨TPSã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ **ãƒ†ã‚¹ãƒˆå®Ÿè£…**
 		if (window.IsKeyDown(GLFW_KEY_M))
 		{
 			if (!window.IsKeyPressed(GLFW_KEY_SPACE) && !window.GetMouseButton(0))
@@ -448,10 +448,10 @@ void MainGameScene::ProcessInput()
 			}
 		}
 
-		//Shot‚ÌØ‚è‘Ö‚¦
+		//Shotã®åˆ‡ã‚Šæ›¿ãˆ
 		if (window.IsKeyDown(GLFW_KEY_LEFT_CONTROL))
 		{
-			//Shotƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚«‚Ì‚İØ‚è‘Ö‚¦
+			//Shotãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ãªã„ã¨ãã®ã¿åˆ‡ã‚Šæ›¿ãˆ
 			if (!window.IsKeyPressed(GLFW_KEY_SPACE) && !window.GetMouseButton(0))
 			{
 				sChangeWeapon.Play();
@@ -466,16 +466,16 @@ void MainGameScene::ProcessInput()
 			}
 		}
 
-		//=======================Camera‚Ì“ü—Íˆ—=================================
-		//–îˆóƒL[‚Ìê‡
-		//¶‰E‚ÌˆÚ“®
+		//=======================Cameraã®å…¥åŠ›å‡¦ç†=================================
+		//çŸ¢å°ã‚­ãƒ¼ã®å ´åˆ
+		//å·¦å³ã®ç§»å‹•
 		if (window.IsKeyPressed(GLFW_KEY_LEFT)) {
 			CameraAngleX += CameraRotateSpeed * deltaTime;
 		}
 		else if (window.IsKeyPressed(GLFW_KEY_RIGHT)) {
 			CameraAngleX -= CameraRotateSpeed * deltaTime;
 		}
-		//ã‰º‚ÌˆÚ“®
+		//ä¸Šä¸‹ã®ç§»å‹•
 		if (window.IsKeyPressed(GLFW_KEY_UP)) {
 			CameraAngleY += CameraRotateSpeed * 30 * deltaTime;
 		}
@@ -484,21 +484,21 @@ void MainGameScene::ProcessInput()
 		}
 
 
-		//Mouse‚Ìê‡
+		//Mouseã®å ´åˆ
 		mousePosX = window.GetMousePosition().x - (1440 / 2);
-		//‰E‚É“®‚©‚µ‚½ê‡
+		//å³ã«å‹•ã‹ã—ãŸå ´åˆ
 		if (mousePosX > LastMousePosX)
 		{
 			CameraAngleX -= CameraRotateSpeed * (mousePosX - LastMousePosX) * deltaTime;
 		}
-		//¶‚É“®‚©‚µ‚½ê‡
+		//å·¦ã«å‹•ã‹ã—ãŸå ´åˆ
 		else if (mousePosX < LastMousePosX)
 		{
 			CameraAngleX += CameraRotateSpeed * (LastMousePosX - mousePosX) * deltaTime;
 		}
 
 		LastMousePosX = mousePosX;
-		////ã‰º‚ÌˆÚ“®
+		////ä¸Šä¸‹ã®ç§»å‹•
 		//posy = static_cast<int>(window.GetMousePosition().y - 380);
 		//if (lastposY < posy)
 		//{
@@ -511,16 +511,16 @@ void MainGameScene::ProcessInput()
 		//lastposY = posy;
 
 		/*
-		* •ûŒü“]Š·
-		* TPSƒ‚[ƒh‚È‚çPlayer‚ÌŒü‚«‚ÍƒJƒƒ‰‚ÉˆË‘¶‚¹‚¸,“ü—Í‚³‚ê‚½•ûŒü‚ÖŒü‚­.
-		* FPSƒ‚[ƒh‚È‚çPlayer‚ÆƒJƒƒ‰‚ÌŒü‚«‚Í“¯Šú‚·‚é
+		* æ–¹å‘è»¢æ›
+		* TPSãƒ¢ãƒ¼ãƒ‰ãªã‚‰Playerã®å‘ãã¯ã‚«ãƒ¡ãƒ©ã«ä¾å­˜ã›ãš,å…¥åŠ›ã•ã‚ŒãŸæ–¹å‘ã¸å‘ã.
+		* FPSãƒ¢ãƒ¼ãƒ‰ãªã‚‰Playerã¨ã‚«ãƒ¡ãƒ©ã®å‘ãã¯åŒæœŸã™ã‚‹
 		*/
 		if (playmode == PlayMode::eFPS)
 		{
 			player.rotation.y = glm::radians(CameraAngleX);
 		}
 
-		//=======================ˆÚ“®‚Ì“ü—Íˆ—===================================
+		//=======================ç§»å‹•ã®å…¥åŠ›å‡¦ç†===================================
 		if (window.IsKeyPressed(GLFW_KEY_A)) {
 			player.velocity = rotaPT * glm::vec4(-1, 0, 0, 1);
 		}
@@ -536,10 +536,10 @@ void MainGameScene::ProcessInput()
 		if (player.velocity.x || player.velocity.z) {
 			player.velocity = glm::normalize(player.velocity);
 			player.velocity *= speed;
-			// ƒVƒ‡ƒbƒgƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î
+			// ã‚·ãƒ§ãƒƒãƒˆãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ãªã‘ã‚Œã°
 			if (!window.IsKeyPressed(GLFW_KEY_SPACE) && !window.GetMouseButton(0)) {
 
-				//¶ƒVƒtƒg‚Åƒ_ƒbƒVƒ… (ˆÚ“®‘¬“x‚ğ1.5”{)
+				//å·¦ã‚·ãƒ•ãƒˆã§ãƒ€ãƒƒã‚·ãƒ¥ (ç§»å‹•é€Ÿåº¦ã‚’1.5å€)
 				if (window.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
 				{
 					player.velocity *= 1.5;
@@ -551,7 +551,7 @@ void MainGameScene::ProcessInput()
 				}
 
 			}
-			//‰Ÿ‚³‚ê‚Ä‚¢‚ê‚ÎˆÚ“®‘¬“x‚ğ”¼Œ¸‚·‚é
+			//æŠ¼ã•ã‚Œã¦ã„ã‚Œã°ç§»å‹•é€Ÿåº¦ã‚’åŠæ¸›ã™ã‚‹
 			else
 			{
 				player.velocity *= 0.5f;
@@ -559,9 +559,9 @@ void MainGameScene::ProcessInput()
 		}
 
 
-		//================================•Ší‚Ìˆ—========================================
+		//================================æ­¦å™¨ã®å‡¦ç†========================================
 
-		//ƒŠƒ[ƒhˆ—
+		//ãƒªãƒ­ãƒ¼ãƒ‰å‡¦ç†
 		if (window.IsKeyDown(GLFW_KEY_R) && (reloadtimer <= 0))
 		{
 			if (!isShotGun)
@@ -572,30 +572,30 @@ void MainGameScene::ProcessInput()
 			}
 		}
 
-		//ƒAƒTƒ‹ƒgƒ‰ƒCƒtƒ‹‚Ìˆ—
+		//ã‚¢ã‚µãƒ«ãƒˆãƒ©ã‚¤ãƒ•ãƒ«ã®å‡¦ç†
 		if (!isShotGun)
 		{
 			if ((window.IsKeyPressed(GLFW_KEY_SPACE) || window.GetMouseButton(0)) && (reloadtimer <= 0)) {
 				const glm::mat4x4 rotaPT = glm::rotate(glm::mat4(1), glm::radians(CameraAngleX), glm::vec3(0, 1, 0));
-				//”­Ëƒ^ƒCƒ}[‚ª0•b ‚©‚Â c’e”‚ª0ˆÈã
+				//ç™ºå°„ã‚¿ã‚¤ãƒãƒ¼ãŒ0ç§’ ã‹ã¤ æ®‹å¼¾æ•°ãŒ0ä»¥ä¸Š
 				if ((playerBulletTimer <= 0) && (al_Remaining > 0)) {
 
-					//ˆê‰ñ–Ú‚È‚ç
+					//ä¸€å›ç›®ãªã‚‰
 					if (!isInput)
 					{
-						//–Â‚ç‚µ‚Ä
+						//é³´ã‚‰ã—ã¦
 						sAssaultSE.Play();
-						//ƒtƒ‰ƒO‚ğƒIƒt‚É‚·‚é
+						//ãƒ•ãƒ©ã‚°ã‚’ã‚ªãƒ•ã«ã™ã‚‹
 						isInput = true;
 					}
-					//•bŠÔ12”­o‚¹‚é
+					//ç§’é–“12ç™ºå‡ºã›ã‚‹
 					playerBulletTimer = 1.0f / 12.0f;
-					//c’e”‚ğ1Œ¸‚ç‚·
+					//æ®‹å¼¾æ•°ã‚’1æ¸›ã‚‰ã™
 					al_Remaining -= 1;
 					const glm::mat4 matRotY = glm::rotate(glm::mat4(1), player.rotation.y, glm::vec3(0, 1, 0));
 					Actor* bullet = FindAvailableActor(playerBulletList);
 
-					//’e‚Ì”­Ëˆ—–{‘Ì
+					//å¼¾ã®ç™ºå°„å‡¦ç†æœ¬ä½“
 					if (bullet) {
 						//bullet->Initialize(6, texBullet.Get(), 2, player.position + glm::vec3(matRotY * glm::vec4(0.25f, 1.0f, -0.125f, 1.0f)), player.rotation, glm::vec3(0.3f, 0.3f, 0.3f));
 						bullet->Initialize(6, texBullet.Get(), 2, player.position + glm::vec3(matRotY * glm::vec4(0.125f, 1.3f, -0.0125f, -1.0f)), player.rotation, glm::vec3(0.3f, 0.3f, 0.3f));
@@ -615,38 +615,38 @@ void MainGameScene::ProcessInput()
 				isInput = false;
 			}
 		}
-		//ƒVƒ‡ƒbƒgƒKƒ“‚Ìˆ—
+		//ã‚·ãƒ§ãƒƒãƒˆã‚¬ãƒ³ã®å‡¦ç†
 		else
 		{
 			std::uniform_int_distribution<int> range(-3, 3);
 
 			if (window.IsKeyPressed(GLFW_KEY_SPACE) || window.GetMouseButton(0) && (reloadtimer <= 0)) {
-				//”­Ëƒ^ƒCƒ}[‚ª0•b ‚©‚Â c’e”‚ª0ˆÈã
+				//ç™ºå°„ã‚¿ã‚¤ãƒãƒ¼ãŒ0ç§’ ã‹ã¤ æ®‹å¼¾æ•°ãŒ0ä»¥ä¸Š
 				if ((playerBulletTimer <= 0) && (sg_Remaining > 0))
 				{
-					//~‚ß‚Ä
+					//æ­¢ã‚ã¦
 					sShotGunSE.Stop();
-					//–Â‚ç‚µ‚Ä
+					//é³´ã‚‰ã—ã¦
 					sShotGunSE.Play();
-					//1.22•b‚É1‰ñ”­Ë‚Å‚«‚é
+					//1.22ç§’ã«1å›ç™ºå°„ã§ãã‚‹
 					playerBulletTimer = 1.22f;
-					//c’e”‚ğ1Œ¸‚ç‚·
+					//æ®‹å¼¾æ•°ã‚’1æ¸›ã‚‰ã™
 					sg_Remaining -= 1;
 					const glm::mat4 matRotY = glm::rotate(glm::mat4(1), player.rotation.y, glm::vec3(0, 1, 0));
 					for (int i = 1; i < 10; ++i)
 					{
-						//‹ó‚«ƒAƒNƒ^[‚ğæ“¾
+						//ç©ºãã‚¢ã‚¯ã‚¿ãƒ¼ã‚’å–å¾—
 						Actor* bullet = FindAvailableActor(playerBulletList);
 
-						//‹ó‚«ƒAƒNƒ^[‚ª‚ ‚ê‚Î
+						//ç©ºãã‚¢ã‚¯ã‚¿ãƒ¼ãŒã‚ã‚Œã°
 						if (bullet)
 						{
-							//‰Šú‰»
+							//åˆæœŸåŒ–
 							//bullet->Initialize(6, texBullet.Get(), 3, player.position + glm::vec3(matRotY * glm::vec4(0.25f, 1.0f, -0.0625f, 1.0f)), player.rotation, glm::vec3(0.2f));
 							bullet->Initialize(6, texBullet.Get(), 3, player.position + glm::vec3(matRotY * glm::vec4(0.001f, 1.2f, -0.001f, 0.01f)), player.rotation, glm::vec3(0.2f));
-							//ƒRƒŠƒWƒ‡ƒ“‚Ìİ’è
+							//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã®è¨­å®š
 							bullet->colLocal = { glm::vec3(-0.25f, -0.25f, -0.25f), glm::vec3(0.5, 0.5, 0.5) };
-							//velocity‚Ìİ’è
+							//velocityã®è¨­å®š
 							bullet->velocity = matRotY * glm::vec4(i * range(random), i * range(random), -150, 1);
 						}
 					}
@@ -673,7 +673,7 @@ void MainGameScene::ProcessInput()
 	else if (state == State::gameOver && !stageClearMove) {
 		player.velocity.x = player.velocity.z = 0;
 		if (window.IsKeyDown(GLFW_KEY_ENTER) || window.GetMouseButton(1)) {
-			//==================-ƒtƒF[ƒhˆ— ƒV[ƒ“ˆÚ“®==========================
+			//==================-ãƒ•ã‚§ãƒ¼ãƒ‰å‡¦ç† ã‚·ãƒ¼ãƒ³ç§»å‹•==========================
 			fadeOut = true;
 			movetimer = 2;
 			gameOverMove = true;
@@ -684,42 +684,42 @@ void MainGameScene::ProcessInput()
 	}
 
 
-	//Debug‹@”\
+	//Debugæ©Ÿèƒ½
 	if (DEBUGMODE)
 	{
 
-		//ˆÚ“®‘¬“x‚ğã¸‚³‚¹‚é
+		//ç§»å‹•é€Ÿåº¦ã‚’ä¸Šæ˜‡ã•ã›ã‚‹
 		if (window.IsKeyPressed(GLFW_KEY_RIGHT_SHIFT))
 		{
 			player.velocity *= 10;
 		}
-		//Ctrl & Alt ƒL[Œn
+		//Ctrl & Alt ã‚­ãƒ¼ç³»
 		if (window.IsKeyPressed(GLFW_KEY_LEFT_ALT) && window.IsKeyPressed(GLFW_KEY_LEFT_CONTROL))
 		{
-			//ƒfƒoƒbƒOƒ‚[ƒh‚ğØ‚é
+			//ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰ã‚’åˆ‡ã‚‹
 			if (window.IsKeyDown(GLFW_KEY_D))
 			{
 				DEBUGMODE = false;
 			}
-			//Ctrl + F [ƒtƒF[ƒh‹@”\] ƒtƒF[ƒh’†‚Å‚È‚¯‚ê‚Î
+			//Ctrl + F [ãƒ•ã‚§ãƒ¼ãƒ‰æ©Ÿèƒ½] ãƒ•ã‚§ãƒ¼ãƒ‰ä¸­ã§ãªã‘ã‚Œã°
 			if (window.IsKeyPressed(GLFW_KEY_F) && (!fadein && !fadeOut))
 			{
-				//Ctrl + F + I [ƒtƒF[ƒhƒCƒ“]
+				//Ctrl + F + I [ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³]
 				if (window.IsKeyDown(GLFW_KEY_I))
 				{
 					fadein = true;
 					faderate = 1;
 				}
-				//Ctrl + F + O [ƒtƒF[ƒhƒAƒEƒg]
+				//Ctrl + F + O [ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆ]
 				else if (window.IsKeyDown(GLFW_KEY_O))
 				{
 					fadeOut = true;
 				}
 			}
-			//ƒV[ƒ“‘JˆÚ
+			//ã‚·ãƒ¼ãƒ³é·ç§»
 			if (window.IsKeyPressed(GLFW_KEY_G))
 			{
-				//ƒQ[ƒ€ƒNƒŠƒA
+				//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢
 				if (window.IsKeyDown(GLFW_KEY_C))
 				{
 					DEBUGMODE = false;
@@ -730,7 +730,7 @@ void MainGameScene::ProcessInput()
 					state = State::gameOver;
 				}
 			}
-			//ƒeƒXƒg—p3D‰¹Œ¹
+			//ãƒ†ã‚¹ãƒˆç”¨3DéŸ³æº
 			if (window.IsKeyDown(GLFW_KEY_1))
 			{
 				SpecialBGM.Play(5.0f);
@@ -739,7 +739,7 @@ void MainGameScene::ProcessInput()
 			{
 				SpecialBGM.Stop(5.0f);
 			}
-			//‰¹ŠÖŒW
+			//éŸ³é–¢ä¿‚
 			if (window.IsKeyDown(GLFW_KEY_S))
 			{
 				sMainBGM.Stop(5.0f);
@@ -764,7 +764,7 @@ void MainGameScene::ProcessInput()
 			{
 				SpecialBGM3.Stop(5.0f);
 			}
-			//‘S‚Ä‚ÌZombie‚ÌHP‚ğŒ¸‚ç‚·
+			//å…¨ã¦ã®Zombieã®HPã‚’æ¸›ã‚‰ã™
 			if (window.IsKeyDown(GLFW_KEY_K))
 			{
 				for (auto& actor : enemyList)
@@ -777,13 +777,13 @@ void MainGameScene::ProcessInput()
 	}
 	else
 	{
-		//¶Alt + ¶Ctrl ƒL[Œn
+		//å·¦Alt + å·¦Ctrl ã‚­ãƒ¼ç³»
 		if (window.IsKeyPressed(GLFW_KEY_LEFT_ALT) && window.IsKeyPressed(GLFW_KEY_LEFT_CONTROL))
 		{
-			//¶Alt + ¶Ctrl + D
+			//å·¦Alt + å·¦Ctrl + D
 			if (window.IsKeyDown(GLFW_KEY_D))
 			{
-				//ƒfƒoƒbƒOƒ‚[ƒh‚ğ‹N“®‚·‚é
+				//ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰ã‚’èµ·å‹•ã™ã‚‹
 				DEBUGMODE = true;
 			}
 		}
@@ -791,25 +791,25 @@ void MainGameScene::ProcessInput()
 }
 
 /**
-* ó‘ÔXV.
+* çŠ¶æ…‹æ›´æ–°.
 */
 void MainGameScene::Update()
 {
 
 	const float deltaTime = (float)GLFWEW::Window::Instance().DeltaTime();
 
-	//ƒtƒF[ƒh’†‚Å‚È‚¯‚ê‚ÎXV‚·‚é
+	//ãƒ•ã‚§ãƒ¼ãƒ‰ä¸­ã§ãªã‘ã‚Œã°æ›´æ–°ã™ã‚‹
 	if (!fadein && !fadeOut)
 	{
-		// ƒvƒŒƒCƒ„[‚ÌXV.
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ›´æ–°.
 		player.Update(deltaTime);
-		// ©‹@ƒVƒ‡ƒbƒg‚ÌXV.
+		// è‡ªæ©Ÿã‚·ãƒ§ãƒƒãƒˆã®æ›´æ–°.
 		UpdateActorList(playerBulletList, deltaTime);
-		// ƒ]ƒ“ƒr‚ÌXV.
+		// ã‚¾ãƒ³ãƒ“ã®æ›´æ–°.
 		UpdateActorList(enemyList, deltaTime);
 	};
 
-	//player‚Æ‰Æ‚Ì“–‚½‚è”»’è
+	//playerã¨å®¶ã®å½“ãŸã‚Šåˆ¤å®š
 	for (auto& object : houseList) {
 		if (object->Actor_HP > 0)
 		{
@@ -840,7 +840,7 @@ void MainGameScene::Update()
 			}
 		}
 	}
-	//player‚Æ–Ø‚Ì“–‚½‚è”»’è
+	//playerã¨æœ¨ã®å½“ãŸã‚Šåˆ¤å®š
 	for (auto& object : treeList) {
 		if (object->Actor_HP > 0)
 		{
@@ -871,7 +871,7 @@ void MainGameScene::Update()
 			}
 		}
 	}
-	//player‚ÆŠâ‚Ì“–‚½‚è”»’è
+	//playerã¨å²©ã®å½“ãŸã‚Šåˆ¤å®š
 	//for (auto& object : rockList) {
 	//	if (object->Actor_HP > 0)
 	//	{
@@ -902,7 +902,7 @@ void MainGameScene::Update()
 	//		}
 	//	}
 	//}
-	//Player‚Ìs“®”ÍˆÍ§ŒÀ
+	//Playerã®è¡Œå‹•ç¯„å›²åˆ¶é™
 	for (int i = 0; i < 3; ++i)
 	{
 		if (player.position[i] < -200.0f)
@@ -915,30 +915,30 @@ void MainGameScene::Update()
 		}
 	}
 
-	//reloadtimer‚ğŒ¸‚ç‚·
+	//reloadtimerã‚’æ¸›ã‚‰ã™
 	if (reloadtimer >= 0)
 	{
 		reloadtimer -= deltaTime;
 	}
 
-	//ƒŠƒXƒi[‚Ìƒ|ƒWƒVƒ‡ƒ“‚ğƒZƒbƒg
+	//ãƒªã‚¹ãƒŠãƒ¼ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’ã‚»ãƒƒãƒˆ
 	Sound::ListenerPostion(player.position);
-	//Œü‚«ƒxƒNƒgƒ‹‚ğæ“¾
+	//å‘ããƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—
 	glm::vec3 dirNormal = glm::normalize(targetPos - vPos);
-	//Œü‚«ƒxƒNƒgƒ‹‚ğƒŠƒXƒi[‚ÖƒZƒbƒg
+	//å‘ããƒ™ã‚¯ãƒˆãƒ«ã‚’ãƒªã‚¹ãƒŠãƒ¼ã¸ã‚»ãƒƒãƒˆ
 	Sound::ListenerDirection(dirNormal.x, dirNormal.y, dirNormal.z);
 
-	//ƒfƒoƒbƒOƒ‚[ƒh‚Å‚È‚¯‚ê‚Îƒ]ƒ“ƒr‚ğo‚·
+	//ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰ã§ãªã‘ã‚Œã°ã‚¾ãƒ³ãƒ“ã‚’å‡ºã™
 	if (!DEBUGMODE)
 	{
-		// ƒ]ƒ“ƒr‚Ì”­¶.
-		//Enemy‚Ìc‚è”‚ª0ˆÈã‚È‚ç
+		// ã‚¾ãƒ³ãƒ“ã®ç™ºç”Ÿ.
+		//Enemyã®æ®‹ã‚Šæ•°ãŒ0ä»¥ä¸Šãªã‚‰
 		if (enemyLeft > 0 && !fadein) {
 
-			//Enemy‚ÌoŒ»ƒ^ƒCƒ}[‚ğŒ¸‚ç‚·
+			//Enemyã®å‡ºç¾ã‚¿ã‚¤ãƒãƒ¼ã‚’æ¸›ã‚‰ã™
 			if (enemyPoppingTimer >= 0) {
 				enemyPoppingTimer -= deltaTime;
-				//Timer‚ª0ˆÈ‰º‚É‚È‚Á‚½‚çƒCƒ“ƒ^[ƒoƒ‹•ª ƒ^ƒCƒ}[‚ğ‰ÁZ‚·‚é
+				//TimerãŒ0ä»¥ä¸‹ã«ãªã£ãŸã‚‰ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«åˆ† ã‚¿ã‚¤ãƒãƒ¼ã‚’åŠ ç®—ã™ã‚‹
 			}
 			else {
 				enemyPoppingTimer += enemyPoppingInterval;
@@ -948,7 +948,7 @@ void MainGameScene::Update()
 				const int popCount = std::min(enemyLeft, maxPopCount);
 				enemyLeft -= popCount;
 
-				//ƒ‰ƒ“ƒ_ƒ€‚Ì”ÍˆÍ‚ğ‚±‚±‚Åİ’è‚·‚é
+				//ãƒ©ãƒ³ãƒ€ãƒ ã®ç¯„å›²ã‚’ã“ã“ã§è¨­å®šã™ã‚‹
 				std::uniform_int_distribution<int> rangeBaseX(player.position.x - 30, player.position.x + 30);
 				std::uniform_int_distribution<int> rangeBaseZ(player.position.z - 30, player.position.z + 30);
 				std::uniform_int_distribution<int> range(-15, 15);
@@ -956,10 +956,10 @@ void MainGameScene::Update()
 				std::uniform_int_distribution<int> speedRange(4, 12);
 				std::uniform_int_distribution<int> scaleRange(12, 16);
 
-				//¶¬‚³‚ê‚éƒx[ƒXƒ|ƒWƒVƒ‡ƒ“‚ğŒˆ’è‚·‚é
+				//ç”Ÿæˆã•ã‚Œã‚‹ãƒ™ãƒ¼ã‚¹ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’æ±ºå®šã™ã‚‹
 				glm::vec3 posBase(rangeBaseX(random), 0, rangeBaseZ(random));
 
-				//oŒ»ˆÊ’u‚ğ’m‚ç‚¹‚é‚½‚ß‚ÌSE‚ğ–Â‚ç‚·
+				//å‡ºç¾ä½ç½®ã‚’çŸ¥ã‚‰ã›ã‚‹ãŸã‚ã®SEã‚’é³´ã‚‰ã™
 				sZombiePopSE.SetPosition(posBase);
 				sZombiePopSE.Play();
 
@@ -967,7 +967,7 @@ void MainGameScene::Update()
 					glm::vec3 pos = posBase + glm::vec3(range(random), 0, range(random));
 
 
-					//Enemy‚Ì¶¬”ÍˆÍ§ŒÀ
+					//Enemyã®ç”Ÿæˆç¯„å›²åˆ¶é™
 					for (int i = 0; i < 3; ++i)
 					{
 						if (pos[i] < -200.0f)
@@ -983,7 +983,7 @@ void MainGameScene::Update()
 					ZombieActor* zombie = (ZombieActor*)FindAvailableActor(enemyList);
 					glm::vec3 popScale = glm::vec3(scaleRange(random) * 0.1, scaleRange(random) * 0.1 + 0.2, scaleRange(random) * 0.1);
 					if (zombie) {
-						//===================ƒGƒlƒ~[‚ÌModel‚³‚µ‚©‚¦@‚S”Ô‚©‚çì‚Á‚½ƒŠƒXƒgNumber‚É===========
+						//===================ã‚¨ãƒãƒŸãƒ¼ã®Modelã•ã—ã‹ãˆã€€ï¼”ç•ªã‹ã‚‰ä½œã£ãŸãƒªã‚¹ãƒˆNumberã«===========
 						zombie->Initialize(4, texZombie.Get(), hpRange(random), pos, glm::vec3(0), glm::vec3(popScale));
 						zombie->colLocal = { glm::vec3(-popScale.x * 0.5, 0, -popScale.z * 0.5), glm::vec3(popScale) };
 						zombie->target = &player;
@@ -996,25 +996,25 @@ void MainGameScene::Update()
 
 
 
-	//Enemy‚Ìó‘Ô‚ğXV
+	//Enemyã®çŠ¶æ…‹ã‚’æ›´æ–°
 	for (auto& actor : enemyList) {
-		//HP‚ª0ˆÈ‰º‚È‚çŸ‚ÌƒAƒNƒ^[‚ğˆ—
+		//HPãŒ0ä»¥ä¸‹ãªã‚‰æ¬¡ã®ã‚¢ã‚¯ã‚¿ãƒ¼ã‚’å‡¦ç†
 		if (actor->Actor_HP <= 0) {
 			continue;
 		}
-		//0ˆÈã‚Ì‚Æ‚«
+		//0ä»¥ä¸Šã®ã¨ã
 		ZombieActor* zombie = (ZombieActor*)actor;
-		//ƒ]ƒ“ƒr‚Ìƒ^[ƒQƒbƒg‚ªHP0‚È‚çˆ—‚ğI—¹‚·‚é
+		//ã‚¾ãƒ³ãƒ“ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒHP0ãªã‚‰å‡¦ç†ã‚’çµ‚äº†ã™ã‚‹
 		if (zombie->target->Actor_HP <= 0) {
 			continue;
 		}
 
-		//ƒAƒ^ƒbƒNƒtƒ‰ƒO‚ªtrue‚È‚ç
+		//ã‚¢ã‚¿ãƒƒã‚¯ãƒ•ãƒ©ã‚°ãŒtrueãªã‚‰
 		if (zombie->isAttacking) {
 			const glm::vec3 vFront = glm::rotate(glm::mat4(1), zombie->rotation.y, glm::vec3(0, 1, 0)) * glm::vec4(0, 0, -1, 0);
 			const glm::vec3 vTarget = zombie->target->position - zombie->position;
 			const float angle = std::acos(glm::dot(vFront, vTarget));
-			//\•ª‚É‹——£‚ª‹ß‚­A³–Ê‚Éƒ^[ƒQƒbƒg‚ª‚¢‚ê‚ÎUŒ‚.
+			//ååˆ†ã«è·é›¢ãŒè¿‘ãã€æ­£é¢ã«ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒã„ã‚Œã°æ”»æ’ƒ.
 			if (std::abs(angle) < glm::radians(45.0f) && glm::length(vTarget) < 1.5f) {
 				--zombie->target->Actor_HP;
 				sZombiePopSE.SetPosition(zombie->position);
@@ -1024,7 +1024,7 @@ void MainGameScene::Update()
 
 
 		}
-		//Enemy‚Ìs“®”ÍˆÍ§ŒÀ
+		//Enemyã®è¡Œå‹•ç¯„å›²åˆ¶é™
 		for (int i = 0; i < 3; ++i)
 		{
 			if (zombie->position[i] < -200.0f)
@@ -1038,7 +1038,7 @@ void MainGameScene::Update()
 		}
 	}
 
-	//ƒ}ƒbƒvŠO‚È‚çHP0‚É‚·‚é
+	//ãƒãƒƒãƒ—å¤–ãªã‚‰HP0ã«ã™ã‚‹
 	for (auto& actor : houseList)
 	{
 		for (int i = 0; i < 3; ++i)
@@ -1083,24 +1083,24 @@ void MainGameScene::Update()
 	}*/
 
 
-	//===========================ƒJƒƒ‰‚ÌXV.====================================--
+	//===========================ã‚«ãƒ¡ãƒ©ã®æ›´æ–°.====================================--
 	const glm::vec3 viewOffset = glm::vec3(0.4f, 1.8f, 2.0f);
 	viewPos = player.position + viewOffset;
 
 
 
-	// ƒvƒŒƒCƒ„[‚Ì’e‚Ì”­Ëƒ^ƒCƒ}[‚ÌXV.
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å¼¾ã®ç™ºå°„ã‚¿ã‚¤ãƒãƒ¼ã®æ›´æ–°.
 	if (playerBulletTimer > 0) {
 		playerBulletTimer -= deltaTime;
 	}
 
 
 	//=================================================================================================
-	//=========================================Õ“Ë”»’è=================================================
+	//=========================================è¡çªåˆ¤å®š=================================================
 	//=================================================================================================
 
-	//===============================’Ç‰Á‚µ‚½Õ“Ë”»’è1======================================
-	//“G“¯m‚ÌÕ“Ë”»’è
+	//===============================è¿½åŠ ã—ãŸè¡çªåˆ¤å®š1======================================
+	//æ•µåŒå£«ã®è¡çªåˆ¤å®š
 	DetectCollision(enemyList, enemyList, [&](Actor& enemy1, Actor& enemy2)
 		{
 			const CollisionTime t = FindCollisionTime(enemy1, enemy2, deltaTime);
@@ -1132,8 +1132,8 @@ void MainGameScene::Update()
 			}
 		});
 
-	//===============================’Ç‰Á‚µ‚½Õ“Ë”»’è2======================================
-	//“G‚Æ‰Æ‚ÌÕ“Ë”»’è
+	//===============================è¿½åŠ ã—ãŸè¡çªåˆ¤å®š2======================================
+	//æ•µã¨å®¶ã®è¡çªåˆ¤å®š
 	DetectCollision(enemyList, houseList, [&](Actor& enemy, Actor& object)
 		{
 			const CollisionTime t = FindCollisionTime(enemy, object, deltaTime);
@@ -1160,8 +1160,8 @@ void MainGameScene::Update()
 			}
 		});
 
-	//===============================’Ç‰Á‚µ‚½Õ“Ë”»’è3======================================
-	//“G‚Æ–Ø‚ÌÕ“Ë”»’è
+	//===============================è¿½åŠ ã—ãŸè¡çªåˆ¤å®š3======================================
+	//æ•µã¨æœ¨ã®è¡çªåˆ¤å®š
 	DetectCollision(enemyList, treeList, [&](Actor& enemy, Actor& object)
 		{
 			const CollisionTime t = FindCollisionTime(enemy, object, deltaTime);
@@ -1188,8 +1188,8 @@ void MainGameScene::Update()
 			}
 		});
 
-	//===============================’Ç‰Á‚µ‚½Õ“Ë”»’è4======================================
-	//“G‚Æ–Ø‚ÌÕ“Ë”»’è
+	//===============================è¿½åŠ ã—ãŸè¡çªåˆ¤å®š4======================================
+	//æ•µã¨æœ¨ã®è¡çªåˆ¤å®š
 	/*DetectCollision(enemyList, rockList, [&](Actor& enemy, Actor& object)
 	{
 		const CollisionTime t = FindCollisionTime(enemy, object, deltaTime);
@@ -1216,18 +1216,18 @@ void MainGameScene::Update()
 		}
 	});*/
 
-	// ƒvƒŒƒCƒ„[‚Ì’e‚Æ“G‚ÌÕ“Ë”»’è.
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å¼¾ã¨æ•µã®è¡çªåˆ¤å®š.
 	DetectCollision(playerBulletList, enemyList, [&](Actor& bullet, Actor& zombie) {
 		const CollisionTime t = FindCollisionTime(bullet, zombie, deltaTime);
 		if (t.time) {
 			zombie.Actor_HP -= bullet.Actor_HP;
 			bullet.Actor_HP = 0;
-			//===================-’…’eSE‚ğ–Â‚ç‚·=======================
+			//===================-ç€å¼¾SEã‚’é³´ã‚‰ã™=======================
 			sHitEnemy.SetPosition(zombie.position);
 			sHitEnemy.Play();
 
 			if (zombie.Actor_HP <= 0) {
-				//==========================€–SSe‚ğ–Â‚ç‚·============================
+				//==========================æ­»äº¡Seã‚’é³´ã‚‰ã™============================
 				sZombieDeadSE.SetPosition(zombie.position);
 				sZombieDeadSE.Play();
 				score += 200;
@@ -1239,24 +1239,24 @@ void MainGameScene::Update()
 		}
 		});
 
-	//===============================’Ç‰Á‚µ‚½Õ“Ë”»’è5======================================
-	//’e‚ÆƒIƒuƒWƒFƒNƒg‚ÌÕ“Ë”»’è
+	//===============================è¿½åŠ ã—ãŸè¡çªåˆ¤å®š5======================================
+	//å¼¾ã¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¡çªåˆ¤å®š
 	DetectCollision(playerBulletList, houseList, [&](Actor& bullet, Actor& object) {
-		//’e‚ÆƒIƒuƒWƒFƒNƒg‚ª“–‚½‚é‚Ü‚Å‚ÌŠÔ‚ğ’²‚×‚é
+		//å¼¾ã¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå½“ãŸã‚‹ã¾ã§ã®æ™‚é–“ã‚’èª¿ã¹ã‚‹
 		const CollisionTime t = FindCollisionTime(bullet, object, deltaTime);
-		//Õ“Ë‚µ‚½‚ç
+		//è¡çªã—ãŸã‚‰
 		if (t.time)
 		{
-			//=========================’…’eSE================================
+			//=========================ç€å¼¾SE================================
 			sHitObject.SetPosition(bullet.position);
 			sHitObject.Play();
-			//’e‚¾‚¯HP‚ğ0‚É‚·‚é
+			//å¼¾ã ã‘HPã‚’0ã«ã™ã‚‹
 			bullet.Actor_HP = 0;
 		}
 		});
 
 
-	// “G‚ğ‚·‚×‚Ä“|‚µ‚½‚çƒXƒe[ƒWƒNƒŠƒA.
+	// æ•µã‚’ã™ã¹ã¦å€’ã—ãŸã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢.
 	if (enemyKilled == enemyTotal) {
 		state = State::stageClear;
 		sAssaultSE.Stop();
@@ -1268,7 +1268,7 @@ void MainGameScene::Update()
 	}
 
 
-	// ƒvƒŒƒCƒ„[‚Ì‘Ì—Í‚ª0ˆÈ‰º‚É‚È‚Á‚½‚çƒQ[ƒ€ƒI[ƒo[.
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½“åŠ›ãŒ0ä»¥ä¸‹ã«ãªã£ãŸã‚‰ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼.
 	if (player.Actor_HP <= 0) {
 		state = State::gameOver;
 		sAssaultSE.Stop();
@@ -1290,21 +1290,21 @@ void MainGameScene::Update()
 		time = 0.1f;
 	}
 	//===================================================================
-	//=========================ƒtƒF[ƒhˆ—===============================
+	//=========================ãƒ•ã‚§ãƒ¼ãƒ‰å‡¦ç†===============================
 	//===================================================================
 
 	if (fadein || fadeOut)
 	{
-		//‚à‚µfaderate‚Ì‰Šú‰»‚ª‚Ü‚¾‚È‚ç
+		//ã‚‚ã—faderateã®åˆæœŸåŒ–ãŒã¾ã ãªã‚‰
 		if (!fadeinit)
 		{
-			//in‚Ì‚Æ‚«‚ÍDEFAULT‚É
+			//inã®ã¨ãã¯DEFAULTã«
 			if (fadein)
 			{
 				faderate = DEFAULT_FADERATE;
 				soundfade = 0.0f;
 			}
-			//out‚Ì‚Æ‚«‚Í‚O‚É
+			//outã®ã¨ãã¯ï¼ã«
 			else
 			{
 				faderate = 0.0f;
@@ -1315,12 +1315,12 @@ void MainGameScene::Update()
 
 
 
-		//Fade IN ˆ—
+		//Fade IN å‡¦ç†
 		if (fadein)
 		{
 			if (faderate > 0.0f)
 			{
-				//2•b‚Åin
+				//2ç§’ã§in
 				faderate -= deltaTime * 0.5f;
 				soundfade += deltaTime * 0.5f;
 				sMainBGM.SetVolume(soundfade);
@@ -1336,7 +1336,7 @@ void MainGameScene::Update()
 		{
 			if (faderate < 1.0f)
 			{
-				//2•b‚Åout
+				//2ç§’ã§out
 				faderate += deltaTime * 0.5f;
 				soundfade -= deltaTime * 0.5f;
 				sMainBGM.SetVolume(soundfade);
@@ -1350,7 +1350,7 @@ void MainGameScene::Update()
 		}
 	}
 
-	//StageClearˆ—
+	//StageClearå‡¦ç†
 	if (stageClearMove)
 	{
 		movetimer -= deltaTime;
@@ -1368,7 +1368,7 @@ void MainGameScene::Update()
 			sg_Remaining += DEFAULT_SG_REMAINING + stageNo;
 		}
 	}
-	//GameOverˆ—
+	//GameOverå‡¦ç†
 	if (gameOverMove)
 	{
 		movetimer -= deltaTime;
@@ -1388,7 +1388,7 @@ void MainGameScene::Update()
 }
 
 /**
-* •`‰æ.
+* æç”».
 */
 void MainGameScene::Render()
 {
@@ -1400,25 +1400,25 @@ void MainGameScene::Render()
 	glClearColor(0.3f, 0.01f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//=======================================À•W•ÏŠ·s—ñ‚ğì¬‚·‚é.=========================================
+	//=======================================åº§æ¨™å¤‰æ›è¡Œåˆ—ã‚’ä½œæˆã™ã‚‹.=========================================
 	/*
-	* ƒp[ƒXƒyƒNƒeƒBƒu(3ŸŒ³“Š‰e)‚Ìs—ñ
-	* @param fovy(Field of View) ‹–ìŠp
-	* @param aspect ‰æ–Ê•”ä—¦
-	* @param near ‹“_‚ÆƒXƒNƒŠ[ƒ“‚Ì‹——£
-	* @param far Œã•û–Ê‚Ì‹——£(‰½‚©‚í‚©‚ç‚È‚¢)
+	* ãƒ‘ãƒ¼ã‚¹ãƒšã‚¯ãƒ†ã‚£ãƒ–(3æ¬¡å…ƒæŠ•å½±)ã®è¡Œåˆ—
+	* @param fovy(Field of View) è¦–é‡è§’
+	* @param aspect ç”»é¢å¹…æ¯”ç‡
+	* @param near è¦–ç‚¹ã¨ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã®è·é›¢
+	* @param far å¾Œæ–¹é¢ã®è·é›¢(ä½•ã‹ã‚ã‹ã‚‰ãªã„)
 	*/
 	const glm::mat4x4 matProj = glm::perspective(glm::radians(55.0f), 16.0f / 9.0f, 0.1f, 500.0f);
 
-	//ƒ[ƒJƒ‹À•W‚Ì‰ñ“]Œãƒ|ƒWƒVƒ‡ƒ“‚ğæ“¾‚·‚é‚½‚ß‚Ìs—ñŒvZ
+	//ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã®å›è»¢å¾Œãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’å–å¾—ã™ã‚‹ãŸã‚ã®è¡Œåˆ—è¨ˆç®—
 	const glm::mat4x4 rotaPT = glm::rotate(glm::mat4(1), glm::radians(CameraAngleX), glm::vec3(0, 1, 0));
 	//const glm::mat4x4 rotaPT = glm::rotate(glm::mat4(1), glm::radians(player.rotation.y), glm::vec3(0, 1, 0));
-	//ƒJƒƒ‰‚ÌÅ“_À•W
+	//ã‚«ãƒ¡ãƒ©ã®ç„¦ç‚¹åº§æ¨™
 	targetPos = rotaPT * glm::vec4(0, glm::radians(CameraAngleY), -(P_T_Distance), 1);
 	/*
-	*	@param viewOffset ƒJƒƒ‰‚Ìƒ[ƒJƒ‹À•W
-	*	@mode TPS	ƒfƒtƒHƒ‹ƒg‚Í	DEFAULT_CAM_OFFSET_TPS
-	*	@mode FPS	ƒfƒtƒHƒ‹ƒg‚Í	DEFAULT_CAM_OFFSET_FPS
+	*	@param viewOffset ã‚«ãƒ¡ãƒ©ã®ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™
+	*	@mode TPS	ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯	DEFAULT_CAM_OFFSET_TPS
+	*	@mode FPS	ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã¯	DEFAULT_CAM_OFFSET_FPS
 	*/
 	glm::vec3 viewOffset;
 	if (playmode == PlayMode::eTPS)
@@ -1429,9 +1429,9 @@ void MainGameScene::Render()
 	{
 		viewOffset = DEFAULT_CAM_OFFSET_FPS;
 	}
-	//ƒJƒƒ‰‚ÌÀ•W‚ğ ƒ[ƒJƒ‹À•W ‚©‚ç ƒ[ƒ‹ƒhÀ•W ‚Ö•ÏŠ·‚·‚é
+	//ã‚«ãƒ¡ãƒ©ã®åº§æ¨™ã‚’ ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ ã‹ã‚‰ ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ ã¸å¤‰æ›ã™ã‚‹
 	vPos = rotaPT * glm::vec4(viewOffset, 1);
-	//ViewÀ•WŒvZs—ñ
+	//Viewåº§æ¨™è¨ˆç®—è¡Œåˆ—
 	const glm::mat4x4 matView = glm::lookAt(player.position + vPos, player.position + targetPos, glm::vec3(0, 1, 0));
 
 
@@ -1444,7 +1444,7 @@ void MainGameScene::Render()
 
 	meshList.BindVertexArray();
 
-	// ŒõŒ¹‚ğİ’è‚·‚é.
+	// å…‰æºã‚’è¨­å®šã™ã‚‹.
 	progLighting.SetLightList(lights);
 
 	progLighting.BindTexture(0, player.texture);
@@ -1469,7 +1469,7 @@ void MainGameScene::Render()
 		const glm::mat4x4 matView = glm::lookAt(glm::vec3(0, 0, 100), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 		progSimple.SetViewProjectionMatrix(matProj * matView);
 
-		// ƒXƒe[ƒW”•\¦.
+		// ã‚¹ãƒ†ãƒ¼ã‚¸æ•°è¡¨ç¤º.
 		progSimple.BindTexture(0, texDay.Get());
 		progSimple.Draw(meshList[5], glm::vec3(-486, -300 + 64 + 24 + 4, 0), glm::vec3(0), glm::vec3(256 / 4, 128 / 4, 1.5));
 
@@ -1488,7 +1488,7 @@ void MainGameScene::Render()
 		}
 
 		int tmpRE;
-		//c’e”
+		//æ®‹å¼¾æ•°
 		if (isShotGun)
 		{
 			tmpRE = sg_Remaining;
@@ -1516,7 +1516,7 @@ void MainGameScene::Render()
 			tmpRE /= 10;
 		}
 
-		// HP•\¦.
+		// HPè¡¨ç¤º.
 		progSimple.BindTexture(0, texHP.Get());
 
 		progSimple.Draw(meshList[5], glm::vec3(-486, -300 + 24 + 4, 0), glm::vec3(0), glm::vec3(192 / 4, 128 / 4, 1.5));
@@ -1543,7 +1543,7 @@ void MainGameScene::Render()
 			tmpHealth /= 10;
 		}
 
-		// ƒXƒRƒA•\¦.
+		// ã‚¹ã‚³ã‚¢è¡¨ç¤º.
 		progSimple.BindTexture(0, texScore.Get());
 
 		progSimple.Draw(meshList[5], glm::vec3(-120, 350 - 24 - 4, 0), glm::vec3(0), glm::vec3(384 / 4, 128 / 4, 1.5));
@@ -1555,7 +1555,7 @@ void MainGameScene::Render()
 			tmpScore = 99999999;
 		}
 
-		//”š‚ğƒeƒNƒXƒ`ƒƒ‚©‚çæ“¾‚µ‚³‚ç‚É“K—p‚·‚é
+		//æ•°å­—ã‚’ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‹ã‚‰å–å¾—ã—ã•ã‚‰ã«é©ç”¨ã™ã‚‹
 		for (int i = 0; i < 8; ++i)
 		{
 			const int number = tmpScore % 10;
@@ -1566,7 +1566,7 @@ void MainGameScene::Render()
 			tmpScore /= 10;
 		}
 
-		// ƒXƒe[ƒWƒNƒŠƒAEƒQ[ƒ€ƒI[ƒo[•\¦.
+		// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚¯ãƒªã‚¢ãƒ»ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼è¡¨ç¤º.
 		if (state == State::stageClear)
 		{
 			progSimple.BindTexture(0, texStageClear.Get());
@@ -1578,18 +1578,18 @@ void MainGameScene::Render()
 			progSimple.BindTexture(0, texGameOver.Get());
 			progSimple.Draw(meshList[5], glm::vec3(0), glm::vec3(0), glm::vec3(300, 60, 1));
 		}
-		// ƒtƒF[ƒhƒAƒEƒg—p
+		// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆç”¨
 		progSimple.BindTexture(0, texFadeSheet.Get());
 
-		//‚à‚µƒtƒF[ƒhƒtƒ‰ƒO‚ªTrue‚¾‚Á‚½‚ç
+		//ã‚‚ã—ãƒ•ã‚§ãƒ¼ãƒ‰ãƒ•ãƒ©ã‚°ãŒTrueã ã£ãŸã‚‰
 		if ((fadein || fadeOut) || gameOverMove)
 		{
-			//ƒtƒF[ƒhˆ—
+			//ãƒ•ã‚§ãƒ¼ãƒ‰å‡¦ç†
 			progSimple.Draw(meshList[5], glm::vec3(0, 0, 0), glm::vec3(0), glm::vec3(1920, 1080, 10), backGroundAlpha * faderate);
 		}
 
 
-		// Effect—p
+		// Effectç”¨
 
 		float alpha = 0.0f;
 		progSimple.BindTexture(0, texEffectSheet.Get());
@@ -1601,9 +1601,9 @@ void MainGameScene::Render()
 		}
 		progSimple.Draw(meshList[5], glm::vec3(0, 0, 0), glm::vec3(0), glm::vec3(1920, 1080, 10), alpha);
 
-		//ƒfƒoƒbƒO—p
+		//ãƒ‡ãƒãƒƒã‚°ç”¨
 		progSimple.BindTexture(0, texDebugImage.Get());
-		//‚à‚µƒfƒoƒbƒOƒ‚[ƒh‚È‚ç
+		//ã‚‚ã—ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰ãªã‚‰
 		if (DEBUGMODE)
 		{
 			progSimple.Draw(meshList[5], glm::vec3(500, 200, 0), glm::vec3(0), glm::vec3(128, 128, 1), 0.8f);
@@ -1613,7 +1613,7 @@ void MainGameScene::Render()
 }
 
 /**
-* I—¹.
+* çµ‚äº†.
 */
 void MainGameScene::Finalize()
 {
